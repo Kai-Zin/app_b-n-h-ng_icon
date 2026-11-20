@@ -1,0 +1,1317 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="utf-8">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#122b25">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Quản lý bán hàng">
+<link rel="apple-touch-icon" href="icon-180.png">
+<title>Kiếm được 10 tỷ sẽ nghỉ làm 😎 – Quản lý bán hàng</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--ink:#172033;--muted:#718096;--line:#e7ebf2;--green:#16845b;--green2:#e7f6ef;--red:#c94b4b;--amber:#a66b12;--blue:#4263a5;--shadow:0 8px 28px #24334d0b}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Inter,system-ui,-apple-system,Segoe UI,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;background:var(--green);color:white;font-weight:650}button.secondary{background:#eef2f7;color:#344054}button.danger{background:#fff0f0;color:var(--red)}button.small{padding:6px 9px;font-size:12px}.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}.side{background:#122b25;color:#e9f5ef;padding:24px 16px}.brand{font-size:20px;font-weight:800;letter-spacing:-.5px;margin:2px 10px 6px}.subbrand{color:#a9c8ba;font-size:12px;margin:0 10px 28px}.nav{display:grid;gap:6px}.nav button{background:transparent;color:#c5d9d0;text-align:left;font-weight:550}.nav button.active,.nav button:hover{background:#21483c;color:white}.side-note{font-size:11px;color:#a9c8ba;margin:30px 10px}.main{padding:26px;max-width:1500px;width:100%;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}.top h1{font-size:24px;margin:0;letter-spacing:-.5px}.muted{color:var(--muted)}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}.card,.panel{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:17px;box-shadow:var(--shadow)}.metric-label{font-size:12px;color:var(--muted)}.metric{font-size:25px;font-weight:800;margin:7px 0 2px;letter-spacing:-.7px}.metric-note{font-size:11px;color:var(--muted)}.grid2{display:grid;grid-template-columns:1.35fr 1fr;gap:15px}.panel h2{font-size:16px;margin:0 0 14px}.toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.toolbar input,.toolbar select{max-width:230px}.field{display:grid;gap:5px;margin-bottom:12px}.field label{font-size:12px;font-weight:650;color:#526071}.field input,.field select,.field textarea,.toolbar input,.toolbar select{width:100%;padding:10px 11px;border:1px solid #dce2ea;border-radius:9px;background:white;color:var(--ink);outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:#58a98a;box-shadow:0 0 0 3px #16845b16}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--line);font-size:12px}th{color:var(--muted);font-weight:650;background:#fafbfd}td strong{font-size:13px}.positive{color:var(--green);font-weight:750}.negative{color:var(--red);font-weight:700}.tag{display:inline-block;border-radius:30px;padding:4px 8px;background:var(--green2);color:var(--green);font-size:11px}.tag.warn{background:#fff5df;color:var(--amber)}.empty{text-align:center;color:var(--muted);padding:30px}.hidden{display:none!important}.modal{position:fixed;inset:0;background:#10231f88;display:grid;place-items:center;padding:15px;z-index:5}.dialog{background:white;border-radius:16px;padding:20px;width:min(680px,100%);max-height:90vh;overflow:auto;box-shadow:0 20px 70px #0003}.dialoghead{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.dialoghead h2{margin:0;font-size:19px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.span2{grid-column:1/-1}.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.lineitem{display:grid;grid-template-columns:2fr .7fr 1fr 36px;gap:7px;align-items:end;margin-bottom:8px}.lineitem input,.lineitem select{min-width:0;width:100%;padding:9px;border:1px solid #dce2ea;border-radius:8px}.summaryline{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed var(--line)}.bars{display:flex;align-items:end;gap:9px;height:150px;padding-top:12px}.barcol{flex:1;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:6px;height:100%;font-size:10px;color:var(--muted)}.bar{width:min(35px,75%);background:#54a987;border-radius:6px 6px 2px 2px;min-height:3px}.barval{font-size:10px;color:#344054}.customerbox{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.notice{background:#f0f7f3;border:1px solid #d9eee2;border-radius:10px;padding:11px;color:#37634f;font-size:12px;margin-bottom:14px}.mobiletop{display:none}
+@media(max-width:850px){.app{grid-template-columns:1fr}.side{padding:12px 14px;position:sticky;top:0;z-index:3}.brand{display:inline-block;margin:0 12px 0 0}.subbrand{display:none}.nav{display:flex;overflow:auto;gap:4px}.nav button{white-space:nowrap;padding:8px 10px;font-size:12px}.side-note{display:none}.main{padding:18px 13px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.metric{font-size:21px}.grid2{grid-template-columns:1fr}.top h1{font-size:21px}.top{align-items:flex-start}.lineitem{grid-template-columns:1.4fr .6fr 1fr 32px}.formgrid{grid-template-columns:1fr}.span2{grid-column:auto}}
+@media(max-width:420px){.metric{font-size:18px}.card{padding:12px}.top{flex-direction:column}.top button{width:100%}}
+
+/* Thương hiệu vui nhộn: Kiếm được 10 tỷ sẽ nghỉ làm */
+.brand{
+  display:flex;align-items:center;gap:9px;
+  font-family:Arial,"Segoe UI",Tahoma,sans-serif;
+  font-size:17px;font-weight:900;line-height:1.18;
+  letter-spacing:-.45px;color:#17243a;
+  margin:2px 8px 8px;
+}
+.brand:before{content:none!important;display:none!important}
+.brand-emoji{
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:0 0 38px;width:38px;height:38px;border-radius:13px;
+  background:linear-gradient(145deg,#ffe28a,#ffb52e);
+  font-size:23px;box-shadow:0 5px 12px #e6a52b35;
+  transform:rotate(-5deg)
+}
+.subbrand{
+  font-family:Arial,"Segoe UI",Tahoma,sans-serif;
+  font-size:11px;font-weight:700;color:#718096;
+  margin:0 8px 26px;letter-spacing:.1px
+}
+.side-note{font-family:Arial,"Segoe UI",Tahoma,sans-serif}
+
+
+
+/* Mobile readability and customer picker */
+.customer-picker{position:relative}
+.customer-picker-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;text-align:left;min-height:44px;padding:11px 12px}
+.customer-picker-list{position:absolute;z-index:20;top:calc(100% + 5px);left:0;right:0;max-height:min(52vh,390px);overflow:auto;background:#fff;border:1px solid #dfe6f0;border-radius:12px;box-shadow:0 12px 32px rgba(24,42,72,.18)}
+.customer-option{display:flex;flex-direction:column;align-items:flex-start;gap:2px;width:100%;padding:11px 13px;background:#fff;color:var(--ink);border-radius:0;border-bottom:1px solid var(--line);text-align:left}
+.customer-option:last-child{border-bottom:0}
+.customer-option strong{font-size:15px;line-height:1.35}
+.customer-option small{font-size:12px;color:#8995a7;font-weight:400;line-height:1.35}
+@media(max-width:850px){
+ body{font-size:16px;line-height:1.55}
+ .main{padding:16px 14px calc(24px + env(safe-area-inset-bottom))}
+ .side{padding:12px 12px}
+ .brand{font-size:19px}
+ .nav button{font-size:13px;padding:10px 11px}
+ .top h1{font-size:24px}
+ .welcome-strip h2{font-size:21px}
+ .welcome-strip p,.panel-heading p{font-size:14px}
+ .metric-label{font-size:14px}
+ .metric{font-size:21px}
+ .metric-note{font-size:12px}
+ .panel h2{font-size:17px}
+ .field label{font-size:14px}
+ .field input,.field select,.field textarea,.toolbar input,.toolbar select{font-size:16px;min-height:44px;padding:11px 12px}
+ button{font-size:15px;min-height:42px}
+ .customer-option strong{font-size:16px}
+ .customer-option small{font-size:13px}
+ .dialog{width:100%;max-height:92dvh;padding:18px}
+}
+@media(max-width:480px){.chart-value-label{font-size:8px;stroke-width:2.5px}
+ .main{padding-left:12px;padding-right:12px}
+ .metric{font-size:20px}
+ .metric-label{font-size:13px}
+ .card,.panel{padding:15px}
+ .nav button{font-size:12px}
+}
+
+/* Mobile usability refinement: readable controls, full-width layout, no input focus zoom */
+@media (max-width: 850px) {
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body { font-size: 16px; line-height: 1.55; }
+  .main { width: 100%; max-width: 100%; padding: 14px 12px 28px; }
+  .side { width: 100%; }
+  .nav { width: 100%; }
+  .nav button { font-size: 14px; min-height: 44px; padding: 10px 12px; }
+  .brand { font-size: 19px; }
+  .top h1 { font-size: 24px; }
+  .panel h2 { font-size: 18px; }
+  .metric-label { font-size: 14px; }
+  .metric { font-size: 21px; }
+  .metric-note { font-size: 13px; }
+  button, .link-btn { min-height: 44px; font-size: 15px; }
+  button.small { min-height: 40px; font-size: 13px; }
+  input, select, textarea,
+  .field input, .field select, .field textarea,
+  .toolbar input, .toolbar select,
+  .searchbox input {
+    font-size: 16px !important;
+    line-height: 1.35;
+    min-height: 44px;
+  }
+  .field label { font-size: 14px; }
+  .analytics-chart svg { min-width: 0; width: 100%; }
+  .analytics-chart { overflow-x: auto; }
+}
+@media (max-width: 480px) {
+  .main { padding-left: 10px; padding-right: 10px; }
+  .nav button { font-size: 13px; padding: 9px 10px; }
+  .cards { gap: 9px; }
+  .card, .panel { padding: 13px; }
+  .metric { font-size: 20px; }
+  .chart-value-label { font-size: 9px; }
+  .chart-axis { font-size: 10px; }
+  .analytics-chart svg { min-width: 0; }
+  .toolbar { gap: 7px; }
+}
+/* Lớp phủ mờ toàn màn hình khi đang lưu/đồng bộ */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(23, 36, 58, 0.55);
+  backdrop-filter: blur(2px);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  gap: 14px;
+}
+.loading-spinner {
+  width: 44px;
+  height: 44px;
+  border: 4px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+.loading-text {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.oprofit{font-size:12px;margin-top:1px;white-space:nowrap;margin-left:0!important}
+</style>
+<style>
+:root{--bg:#f3f6fc;--card:#fff;--ink:#17243a;--muted:#7c899d;--line:#e8edf5;--green:#18a875;--green2:#e8f8f1;--red:#d94d5c;--amber:#b97819;--blue:#3478ee;--shadow:0 5px 22px rgba(34,67,115,.055)}
+body{background:#f3f6fc;color:var(--ink);font-family:Arial,"Segoe UI",Tahoma,sans-serif}.app{grid-template-columns:244px minmax(0,1fr);gap:0}.side{background:#fff;color:#26354b;border-right:1px solid #e9eef6;padding:25px 16px;box-shadow:4px 0 20px rgba(35,60,100,.025)}.brand{color:#17243a;font-size:22px;margin:0 12px 4px}.brand:before{content:'▦';display:inline-grid;place-items:center;background:#3478ee;color:white;width:30px;height:30px;border-radius:9px;margin-right:9px;font-size:17px}.subbrand{color:#9aa6b7;font-size:10px;letter-spacing:1px;margin:0 12px 34px}.nav{gap:7px}.nav button{color:#68778d;border-radius:10px;padding:11px 13px;font-weight:600}.nav button.active,.nav button:hover{background:#edf4ff;color:#3478ee}.side-note{color:#9aa6b7}.main{max-width:1600px;padding:22px 30px 34px}.app-topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:27px}.searchbox{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #e7ecf4;border-radius:11px;padding:0 14px;width:min(440px,60%);height:42px;color:#9aa6b7}.searchbox input{border:0;outline:0;width:100%;background:transparent;color:var(--ink)}.profile-chip{display:flex;align-items:center;gap:10px}.profile-chip strong,.profile-chip small{display:block}.profile-chip small{font-size:11px;color:var(--muted)}.profile-avatar{width:36px;height:36px;border-radius:50%;background:#e7f0ff;color:#3478ee;display:grid;place-items:center;font-weight:800}.top{margin-bottom:20px}.top h1{font-size:25px}.top>button,.welcome-strip>button{background:#3478ee;border-radius:9px;box-shadow:0 5px 12px #3478ee25}.card,.panel{border:1px solid #e9eef6;border-radius:15px;box-shadow:var(--shadow);padding:19px}.cards{gap:15px;margin-bottom:17px}.metric-top{display:flex;justify-content:space-between;align-items:center}.metric-icon{width:39px;height:39px;border-radius:12px;display:grid;place-items:center;font-size:19px;font-weight:800}.metric-icon.blue{background:#eaf1ff;color:#3478ee}.metric-icon.green{background:#e7f8ef;color:#1ba878}.metric-icon.orange{background:#fff2e3;color:#ee982e}.metric-icon.purple{background:#f2eaff;color:#9360db}.metric-label{font-size:13px;font-weight:600;color:#75839a}.metric{font-size:clamp(18px,1.7vw,25px);margin:12px 0 3px;letter-spacing:-.6px}.metric-note{font-size:11px}.welcome-strip{display:flex;align-items:center;justify-content:space-between;margin:0 0 19px}.welcome-strip h2{font-size:20px;margin:3px 0}.welcome-strip p,.panel-heading p{margin:0;color:var(--muted);font-size:12px}.eyebrow{font-size:10px;letter-spacing:1.2px;color:#3478ee;font-weight:800}.dashboard-grid{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,.9fr);gap:16px;margin-bottom:16px}.panel h2{font-size:15px;font-weight:750;margin:0 0 14px}.panel-heading{display:flex;justify-content:space-between;align-items:center;gap:12px}.panel-heading h2{margin:0}.chart-legend{font-size:10px;color:#78869a;white-space:nowrap}.chart-legend i,.chart-legend b{display:inline-block;width:9px;height:9px;border-radius:3px;background:#3478ee;margin:0 4px 0 8px}.chart-legend b{background:#22b77c}.chart-area{display:flex;height:190px;margin-top:20px;border-bottom:1px solid var(--line);background:repeating-linear-gradient(to bottom,transparent 0,transparent 46px,#edf1f7 47px)}.y-labels{display:flex;flex-direction:column;justify-content:space-between;padding:0 8px 25px 0;font-size:9px;color:#9aa6b7}.bars{display:flex;align-items:end;justify-content:space-around;gap:12px;flex:1;padding:0 8px}.barcol{height:100%;justify-content:flex-end;gap:7px}.bar{width:min(34px,70%);background:linear-gradient(180deg,#5594ff,#3478ee);border-radius:6px 6px 2px 2px;min-height:3px}.barval{font-size:9px}.barcol span{font-size:10px}.chart-foot{display:flex;align-items:center;gap:12px;margin-top:14px;font-size:11px;color:var(--muted);flex-wrap:wrap}.chart-foot strong{color:var(--ink)}.chart-foot .positive{margin-left:auto}.summary-stat{display:flex;justify-content:space-between;gap:8px;padding:13px 0;border-bottom:1px solid var(--line);font-size:12px;color:#718097}.summary-stat strong{color:var(--ink);font-size:13px}.full-btn{width:100%;margin-top:16px}.lower-grid{grid-template-columns:1.35fr 1fr}.link-btn{background:transparent;color:#3478ee;padding:5px;font-size:11px}.panel{margin-bottom:0}.product-thumb{width:52px;height:52px;object-fit:cover;border-radius:10px;border:1px solid #e8edf5;background:#f3f6fc}.product-placeholder{width:52px;height:52px;border-radius:10px;background:#edf4ff;display:grid;place-items:center;font-size:22px;color:#789}.daily-chart{display:flex;align-items:end;gap:8px;height:155px;padding:12px 4px 0}.daily-col{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:5px;font-size:10px;color:var(--muted)}.daily-bar{width:min(26px,70%);min-height:2px;background:linear-gradient(180deg,#65c99e,#18a875);border-radius:5px 5px 2px 2px}.daily-value{font-size:9px;color:#52627a;white-space:nowrap}.report-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.notice{background:#eef5ff;border-color:#dce9ff;color:#54729e}.toolbar input:focus,.field input:focus,.field select:focus,.field textarea:focus{border-color:#78a8f7;box-shadow:0 0 0 3px #3478ee18}.tag{background:#e8f8f1;color:#159b6b}button{background:#3478ee}button.secondary{background:#eef3fa;color:#52627a}th{background:#f8faff}td,th{padding:12px 10px}.modal{background:#172b4888}
+@media(max-width:1050px){.app{grid-template-columns:205px 1fr}.main{padding:18px}.dashboard-grid{grid-template-columns:1fr}.summary-panel{display:grid;grid-template-columns:1fr 1fr;column-gap:18px}.summary-panel h2,.summary-panel .full-btn{grid-column:1/-1}}
+@media(max-width:850px){.app{grid-template-columns:1fr}.side{padding:12px 14px;position:sticky;top:0}.brand{font-size:18px}.brand:before{width:26px;height:26px}.nav button{font-size:12px}.main{padding:14px}.app-topbar{margin-bottom:16px}.searchbox{width:68%}.profile-chip small{display:none}.welcome-strip h2{font-size:18px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.lower-grid{grid-template-columns:1fr}.summary-panel{display:block}}
+@media(max-width:480px){.chart-value-label{font-size:8px;stroke-width:2.5px}.app-topbar{gap:8px}.searchbox{width:72%;height:38px}.profile-chip{gap:5px}.profile-chip strong{display:none}.profile-avatar{width:32px;height:32px}.welcome-strip{align-items:flex-start;gap:8px}.welcome-strip>button{font-size:11px;padding:9px}.card{padding:13px}.metric{font-size:18px}.chart-legend{display:none}.chart-area{height:165px}.chart-foot{gap:7px}}
+/* Biểu đồ doanh thu, lợi nhuận và chi phí */
+.analytics-chart{width:100%;overflow-x:auto;margin-top:14px}.compact-chart svg{max-height:190px}.analytics-chart svg{display:block;width:100%;min-width:520px;height:auto}.analytics-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:#718096;margin-top:10px}.analytics-legend span{display:inline-flex;align-items:center;gap:6px}.legend-dot{width:9px;height:9px;border-radius:50%;display:inline-block}.chart-gridline{stroke:#e9eef6;stroke-width:1}.chart-value-label{font-size:10px;font-weight:700;fill:#46566d;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}.chart-axis{fill:#8b98aa;font-size:10px}.chart-line{fill:none;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}.chart-point{stroke:white;stroke-width:2}.cost-breakdown{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}.cost-chip{background:#f7f9fc;border:1px solid #e8edf5;border-radius:9px;padding:8px 10px;font-size:11px;color:#718096}.cost-chip strong{display:block;color:#17243a;font-size:13px;margin-top:3px}
+
+</style>
+
+
+<style id="mobile-readable-100-percent">
+/* Mobile: open at normal 100% scale, keep pinch zoom available, and make text easier to read. */
+@media (max-width: 850px) {
+  html { width: 100%; }
+  body { width: 100%; max-width: 100%; font-size: 19px !important; line-height: 1.55 !important; }
+  .main { width: 100%; max-width: 100%; padding: 16px 12px !important; }
+  .brand { font-size: 22px !important; }
+  .nav button { font-size: 16px !important; min-height: 48px; padding: 12px 14px !important; }
+  .top h1 { font-size: 28px !important; line-height: 1.25; }
+  .welcome-strip h2, .panel h2 { font-size: 22px !important; line-height: 1.3; }
+  .welcome-strip p, .panel-heading p, .muted, .notice { font-size: 17px !important; }
+  .metric-label { font-size: 17px !important; }
+  .metric { font-size: 25px !important; }
+  .metric-note { font-size: 15px !important; }
+  .field label { font-size: 17px !important; }
+  .field input, .field select, .field textarea,
+  .toolbar input, .toolbar select, .lineitem input, .lineitem select {
+    font-size: 16px !important;
+    min-height: 48px;
+    padding: 12px !important;
+  }
+  button, .link-btn { font-size: 17px !important; min-height: 48px; padding: 12px 15px; }
+  button.small { font-size: 15px !important; min-height: 44px; }
+  th, td { font-size: 15px !important; padding: 13px 11px !important; }
+  td strong { font-size: 16px !important; }
+  .tag, .cost-chip { font-size: 14px !important; }
+  .summary-stat, .summary-stat strong { font-size: 15px !important; }
+  .chart-axis, .chart-foot, .analytics-legend { font-size: 14px !important; }
+  .chart-value-label { font-size: 12px !important; }
+  .dialog { max-width: 100%; }
+}
+@media (max-width: 480px) {
+  body { font-size: 18px !important; }
+  .main { padding: 14px 10px !important; }
+  .card, .panel { padding: 15px !important; }
+  .metric { font-size: 23px !important; }
+  .top h1 { font-size: 26px !important; }
+  .welcome-strip h2, .panel h2 { font-size: 21px !important; }
+}
+/* Prevent iOS focus auto-zoom: inputs stay at >=16px. Pinch zoom remains enabled. */
+input, select, textarea { font-size: 16px; }
+</style>
+
+
+<style id="mobile-final-readable">
+/* Final mobile rules are deliberately placed last so older page styles cannot override them. */
+@media screen and (max-width: 850px) {
+  html, body { width:100% !important; min-width:0 !important; max-width:100% !important; margin:0 !important; }
+  body { font-size:20px !important; line-height:1.6 !important; }
+  .app { display:block !important; width:100% !important; min-width:0 !important; }
+  .side { width:100% !important; padding:14px 12px !important; }
+  .brand { font-size:25px !important; line-height:1.35 !important; }
+  .nav { gap:7px !important; }
+  .nav button { font-size:17px !important; line-height:1.35 !important; min-height:50px !important; padding:12px 14px !important; }
+  .main { width:100% !important; max-width:none !important; min-width:0 !important; padding:18px 12px 30px !important; margin:0 !important; }
+  .top h1 { font-size:30px !important; line-height:1.3 !important; }
+  .welcome-strip h2, .panel h2, .dialoghead h2 { font-size:25px !important; line-height:1.35 !important; }
+  .welcome-strip p, .panel p, .notice, .muted { font-size:18px !important; line-height:1.5 !important; }
+  .card, .panel { padding:18px !important; }
+  .metric-label, .field label { font-size:18px !important; line-height:1.4 !important; }
+  .metric { font-size:29px !important; line-height:1.25 !important; }
+  .metric-note, .subbrand, .side-note { font-size:16px !important; }
+  button, .link-btn { font-size:18px !important; line-height:1.35 !important; min-height:50px !important; padding:12px 15px !important; }
+  button.small { font-size:16px !important; min-height:46px !important; }
+  input, select, textarea, .field input, .field select, .field textarea,
+  .toolbar input, .toolbar select, .lineitem input, .lineitem select {
+    font-size:18px !important; line-height:1.4 !important; min-height:50px !important; padding:12px !important;
+  }
+  th, td { font-size:16px !important; line-height:1.45 !important; padding:14px 12px !important; }
+  td strong { font-size:17px !important; }
+  .tag, .cost-chip { font-size:16px !important; }
+  .chart-axis, .chart-foot, .analytics-legend { font-size:15px !important; }
+  .chart-value-label { font-size:13px !important; }
+  .dialog { width:100% !important; max-width:100% !important; }
+}
+@media screen and (max-width: 480px) {
+  body { font-size:19px !important; }
+  .main { padding-left:10px !important; padding-right:10px !important; }
+  .top h1 { font-size:28px !important; }
+  .welcome-strip h2, .panel h2, .dialoghead h2 { font-size:23px !important; }
+  .metric { font-size:27px !important; }
+}
+/* Keep input text at 18px to prevent iPhone Safari's focus auto-zoom. Do not disable pinch zoom. */
+input, select, textarea { font-size:18px !important; }
+</style>
+
+
+<style id="mobile-width-layout-fix">
+/* Fix mobile page being rendered as a narrow column with unused space on the right. */
+@media screen and (max-width: 850px) {
+  html, body {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+  }
+  body { display: block !important; }
+  .app {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100vw !important;
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .side, .main {
+    display: block !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+  .side {
+    position: relative !important;
+    top: auto !important;
+    padding: 14px 16px !important;
+    overflow: hidden !important;
+  }
+  .brand {
+    display: flex !important;
+    width: 100% !important;
+    align-items: center !important;
+    font-size: 24px !important;
+    line-height: 1.3 !important;
+    margin: 0 0 10px !important;
+  }
+  .nav {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    gap: 6px !important;
+  }
+  .nav button {
+    flex: 0 0 auto !important;
+    font-size: 16px !important;
+    min-height: 48px !important;
+    padding: 10px 12px !important;
+  }
+  .main {
+    padding: 18px 16px 32px !important;
+    overflow: visible !important;
+  }
+  .app-topbar {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 10px !important;
+  }
+  .searchbox {
+    width: min(100%, 440px) !important;
+    max-width: 100% !important;
+    flex: 1 1 220px !important;
+  }
+  .cards {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    width: 100% !important;
+    gap: 12px !important;
+  }
+  .card, .panel {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  .lower-grid, .dashboard-grid, .grid2 {
+    width: 100% !important;
+    min-width: 0 !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+@media screen and (max-width: 380px) {
+  .cards { grid-template-columns: minmax(0, 1fr) !important; }
+  .main { padding-left: 12px !important; padding-right: 12px !important; }
+}
+</style>
+
+
+<style id="mobile-single-line-fix">
+@media screen and (max-width: 850px) {
+  /* Date stays on one line above the page title. */
+  .top { align-items: center !important; flex-wrap: nowrap !important; gap: 8px !important; }
+  .top > div { min-width: 0 !important; flex: 1 1 auto !important; }
+  #today {
+    white-space: nowrap !important;
+    overflow: visible !important;
+    font-size: clamp(11px, 3.35vw, 14px) !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.25px !important;
+  }
+  /* Keep the amount and currency symbol together on a single line. */
+  .metric {
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+    font-size: clamp(18px, 5.4vw, 25px) !important;
+    letter-spacing: -0.6px !important;
+    line-height: 1.25 !important;
+  }
+  .metric-card { min-width: 0 !important; overflow: hidden !important; }
+  .metric-top { min-width: 0 !important; }
+}
+@media screen and (max-width: 380px) {
+  #today { font-size: 11px !important; letter-spacing: -0.45px !important; }
+  .metric { font-size: clamp(17px, 5vw, 21px) !important; letter-spacing: -0.7px !important; }
+}
+</style>
+
+
+<style id="order-details-and-mobile-kpis">
+.order-row{cursor:pointer;transition:background .15s}.order-row:hover,.order-row:focus{background:#f2f6ff;outline:none}.order-hint{font-size:12px;margin:12px 2px 0}.order-detail-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:4px 0 15px;border-bottom:1px solid var(--line)}.order-code{font-size:21px;display:block;margin-top:3px}.detail-section{padding:15px 0;border-bottom:1px solid var(--line)}.detail-section:last-of-type{border-bottom:0}.detail-section h3{font-size:15px;margin:0 0 10px}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.detail-grid small,.detail-grid strong{display:block}.detail-grid small{font-size:12px;color:var(--muted);margin-bottom:3px}.detail-grid strong{font-size:14px;overflow-wrap:anywhere}.detail-lines{min-width:580px}.detail-profit{padding-top:12px;margin-top:5px}.report-profit-strip{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 18px;margin:-5px 0 16px;background:#fff;border:1px solid #e9eef6;border-radius:14px;box-shadow:var(--shadow)}.report-profit-strip span,.report-profit-strip small{display:block}.report-profit-strip small{font-size:12px;color:var(--muted);margin-top:3px}.report-profit-strip>strong{font-size:21px;white-space:nowrap}
+@media screen and (max-width:850px){.cards,.report-metrics{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}.metric-card{min-width:0!important;overflow:hidden!important}.metric{font-size:clamp(16px,4.8vw,22px)!important;letter-spacing:-.6px!important}.metric-label{font-size:clamp(13px,3.8vw,16px)!important}.metric-note{font-size:clamp(11px,3.2vw,14px)!important}.card{padding:12px!important}.report-profit-strip{padding:13px 14px}.report-profit-strip>strong{font-size:clamp(17px,4.8vw,22px)!important}}
+@media screen and (max-width:380px){.cards,.report-metrics{grid-template-columns:repeat(2,minmax(0,1fr))!important}.metric{font-size:16px!important}.metric-label{font-size:12px!important}.metric-note{font-size:11px!important}.card{padding:10px!important}.metric-icon{width:30px;height:30px;font-size:15px}}
+</style>
+
+<style id="order-modal-mobile-polish">
+/* Chú thích cột sản phẩm trong đơn */
+.lineitem-head {
+  display: grid;
+  grid-template-columns: 1.55fr 0.72fr 1.05fr 32px;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #526071;
+  margin-bottom: 6px;
+  padding: 0 2px;
+}
+.lineitem-head span:nth-child(2),
+.lineitem-head span:nth-child(3) {
+  text-align: center;
+}
+
+/* Tối ưu cỡ chữ & bố cục popup Tạo đơn hàng trên điện thoại */
+@media screen and (max-width: 850px) {
+  #modal .dialog {
+    padding: 15px 14px !important;
+    border-radius: 14px !important;
+  }
+  #modal .dialoghead {
+    margin-bottom: 10px !important;
+  }
+  #modal .dialoghead h2 {
+    font-size: 19px !important;
+  }
+  #modal .dialoghead button {
+    min-height: 36px !important;
+    padding: 6px 10px !important;
+    font-size: 14px !important;
+  }
+  #modal .field {
+    margin-bottom: 9px !important;
+    gap: 4px !important;
+  }
+  #modal .field label {
+    font-size: 13px !important;
+  }
+  #modal .field input,
+  #modal .field select,
+  #modal .field textarea,
+  #modal .customer-picker-trigger {
+    font-size: 16px !important;
+    min-height: 40px !important;
+    padding: 8px 10px !important;
+  }
+  #modal .lineitem-head {
+    grid-template-columns: 1.55fr 0.72fr 1.05fr 30px;
+    gap: 5px;
+    font-size: 11px !important;
+  }
+  #modal .lineitem {
+    grid-template-columns: 1.55fr 0.72fr 1.05fr 30px !important;
+    gap: 5px !important;
+    margin-bottom: 7px !important;
+  }
+  #modal .lineitem input,
+  #modal .lineitem select {
+    font-size: 16px !important;
+    min-height: 40px !important;
+    padding: 7px 6px !important;
+  }
+  #modal .lineitem input[type="number"] {
+    text-align: center;
+  }
+  #modal .lineitem button.small {
+    min-height: 40px !important;
+    padding: 0 !important;
+    font-size: 15px !important;
+  }
+  #modal .summaryline {
+    font-size: 14px !important;
+    padding: 6px 0 !important;
+  }
+  #modal .summaryline strong {
+    font-size: 14.5px !important;
+  }
+  #modal .actions {
+    margin-top: 12px !important;
+  }
+  #modal .actions button {
+    min-height: 42px !important;
+    font-size: 15px !important;
+    padding: 9px 14px !important;
+  }
+}
+</style>
+<style id="compact-menu">
+.app{display:block!important;width:100%!important;min-width:0!important;max-width:none!important;padding:0!important}
+.app-topbar{display:none!important}
+.modal{z-index:60!important}
+.topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;padding:8px 14px;padding-top:max(8px,env(safe-area-inset-top));background:#fff;border-bottom:1px solid #e9eef6}
+html body .menu-btn{width:40px;height:40px;min-height:40px!important;padding:0!important;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:#edf4ff;border-radius:10px;box-shadow:none}
+.menu-btn span{display:block;width:20px;height:2.5px;border-radius:2px;background:#3478ee}
+.tb-brand{font-weight:800;font-size:15px;color:#17243a}
+.drawer-bg{position:fixed;inset:0;background:#172b4880;z-index:40}
+.drawer{position:fixed;top:0;left:0;bottom:0;width:min(280px,82vw);background:#fff;z-index:50;transform:translateX(-104%);transition:transform .2s;padding:18px 12px;overflow:auto;box-shadow:6px 0 24px #0002}
+.drawer.open{transform:none}
+.drawer-head{font-weight:800;font-size:16px;padding:4px 8px 14px;color:#17243a}
+.drawer-head small{display:block;font-weight:600;font-size:11px;color:#8b98aa;margin-top:3px}
+.menu{display:grid;gap:4px}
+html body .menu button{width:100%;text-align:left;background:transparent;color:#52627a;font-size:15px;font-weight:600;padding:12px;border-radius:10px;min-height:44px;box-shadow:none}
+html body .menu button.active{background:#edf4ff;color:#3478ee}
+.drawer-note{font-size:12px;color:#8b98aa;padding:18px 10px}
+html body .main{padding:14px 16px 30px!important}
+.dash{display:block}
+.fold{background:#fff;border:1px solid #e9eef6;border-radius:14px;box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
+.fold>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;font-weight:700;font-size:14px;color:#17243a}
+.fold>summary::-webkit-details-marker{display:none}
+.fold>summary:after{content:'▾';color:#8b98aa;transition:transform .2s}
+.fold:not([open])>summary:after{transform:rotate(90deg)}
+.fold-body{padding:0 14px 14px}
+.fin-grid{display:grid;grid-template-columns:1fr 1fr;text-align:center;padding:2px 0 10px}
+.fin-grid>div+div{border-left:1px solid var(--line)}
+.fin-grid small{display:block;font-size:12px;color:var(--muted)}
+.fin-grid strong{display:block;font-size:clamp(16px,5vw,21px);margin-top:3px;white-space:nowrap}
+.fin-grid .rev{color:#3478ee}
+.stat-table th,.stat-table td{text-align:center}
+.stat-table th:first-child,.stat-table td:first-child{text-align:left}
+@media(min-width:1000px){.dash{display:grid;grid-template-columns:1fr 1fr;gap:0 14px;align-items:start}.dash .d-chart{grid-column:1/-1;order:3}.dash .d-fin{order:1}.dash .d-stat{order:2}.dash .d-recent{order:4}.dash .d-care{order:5}}
+@media screen and (max-width:850px){
+html body{font-size:14px!important;line-height:1.45!important}
+html body .top h1{font-size:19px!important}
+html body #today{font-size:12px!important}
+html body .panel h2,html body .dialoghead h2{font-size:15px!important}
+html body .muted,html body .notice,html body .panel-heading p{font-size:12px!important}
+html body .metric-label{font-size:12px!important}
+html body .metric{font-size:clamp(15px,4.6vw,19px)!important}
+html body .metric-note{font-size:11px!important}
+html body .field label{font-size:12px!important}
+html body button,html body .link-btn{font-size:14px!important;min-height:40px!important;padding:8px 12px!important}
+html body button.small{font-size:12px!important;min-height:34px!important;padding:6px 9px!important}
+html body .menu-btn{padding:0!important}
+html body .menu button{font-size:15px!important;min-height:44px!important;padding:12px!important}
+html body th,html body td{font-size:12.5px!important;padding:9px 8px!important;line-height:1.4!important}
+html body td strong{font-size:13px!important}
+html body .tag,html body .cost-chip{font-size:12px!important}
+html body .chart-foot,html body .analytics-legend{font-size:11px!important}
+
+html body .summary-stat{font-size:13px}
+html body input,html body select,html body textarea,html body .field input,html body .field select,html body .field textarea,html body .toolbar input,html body .toolbar select,html body .lineitem input,html body .lineitem select{font-size:16px!important;min-height:42px!important;padding:9px 10px!important}
+html body .top{margin-bottom:12px!important}
+}
+</style>
+<style id="order-fullpage">
+.fp{position:fixed;inset:0;z-index:70;background:#f3f6fc;display:flex;flex-direction:column}
+.fp-head{display:flex;align-items:center;gap:8px;padding:8px 10px;padding-top:max(8px,env(safe-area-inset-top));background:#3478ee;color:#fff}
+.fp-head h2{flex:1;margin:0;font-size:17px}
+html body .fp-head button{background:transparent!important;color:#fff!important;box-shadow:none;font-size:15px!important}
+html body .fp-head button:first-child{font-size:30px!important;line-height:1;padding:0 12px!important}
+html body .fp-head .fp-save{background:#fff!important;color:#3478ee!important;font-weight:700}
+.fp-body{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding-bottom:16px}
+.fp-search{padding:8px 12px;background:#fff;border-bottom:1px solid #e9eef6}
+html body .fp-search input{width:100%;border:1px solid #dce2ea;border-radius:10px}
+.fp-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;padding-bottom:max(10px,env(safe-area-inset-bottom));background:#fff;border-top:1px solid #e9eef6}
+.fp-foot strong{font-size:20px;color:#3478ee}
+.fp-foot button{flex:1}
+.sec{background:#fff;margin:8px auto 0;padding:12px 14px;max-width:760px}
+.sec-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.grow{flex:1;min-width:0}
+.kv{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-top:1px solid #eef2f7;font-size:14px}
+.kv:first-of-type{margin-top:8px}
+html body .kv input{width:60%;text-align:right}
+html body .sec select{font-size:16px!important;font-weight:700;border:0;padding:4px 0!important;min-height:36px!important;background:transparent;width:100%;box-shadow:none}
+.ol{display:grid;grid-template-columns:56px 1fr auto;gap:10px;padding:10px 0;border-bottom:1px solid #eef2f7;align-items:start}
+.ol img,.ol .ph{width:56px;height:56px;border-radius:10px;object-fit:cover;background:#edf4ff;display:grid;place-items:center;font-size:22px}
+.ol-name{font-weight:700;font-size:14px;overflow-wrap:anywhere}
+.stepper{display:inline-flex;border:1px solid #dce2ea;border-radius:9px;overflow:hidden;margin-top:6px;vertical-align:middle}
+html body .stepper button{background:#fff!important;color:#3478ee!important;width:40px;min-height:36px!important;padding:0!important;border-radius:0!important;font-size:22px!important;box-shadow:none}
+html body .stepper input{width:58px;text-align:center;border:0;border-left:1px solid #dce2ea;border-right:1px solid #dce2ea;border-radius:0;min-height:36px!important;padding:0!important;font-size:16px!important}
+.ol-price{text-align:right;display:grid;gap:6px;justify-items:end}
+.ol-total{font-weight:800;font-size:14px}
+html body .ol-unit{width:104px;text-align:right;min-height:36px!important;padding:4px 8px!important;font-size:16px!important;border:1px solid #dce2ea;border-radius:8px}
+html body .ol-nm,html body .ol-cost{width:100%;min-height:36px!important;padding:4px 8px!important;font-size:16px!important;margin-top:4px;border:1px solid #dce2ea;border-radius:8px}
+.pk{display:flex;gap:12px;padding:10px 14px;background:#fff;border-bottom:1px solid #eef2f7;align-items:center;cursor:pointer}
+.pk .th{width:56px;height:56px;border-radius:10px;overflow:hidden;position:relative;flex:none;background:#edf4ff;display:grid;place-items:center;font-size:22px}
+.pk .th img{width:100%;height:100%;object-fit:cover}
+.pk .tick{position:absolute;inset:0;background:#3478eecc;color:#fff;display:none;place-items:center;font-size:28px}
+.pk.on{background:#f0f6ff}
+.pk.on .tick{display:grid}
+.pk .nm{flex:1;font-weight:700;font-size:14px}
+.pk .pr{color:#3478ee;font-weight:800;font-size:14px;white-space:nowrap}
+</style>
+<style id="order-list">
+.olist{background:#fff;border:1px solid #e9eef6;border-radius:14px;box-shadow:var(--shadow);padding:0 12px;overflow:hidden}
+.orow{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #eef2f7;cursor:pointer}
+.orow:last-child{border-bottom:0}
+.oic{width:44px;height:44px;flex:none;border:1px solid #dce2ea;border-radius:11px;background:#f8faff;display:grid;place-items:center;font-size:20px}
+.omid{flex:1;min-width:0}
+.ocus{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ocode{font-size:12px;color:var(--muted);margin-top:2px}
+.oright{text-align:right;flex:none}
+.odate{font-size:12px;color:var(--muted)}
+.oamt{font-weight:800;font-size:15px;margin-top:2px;white-space:nowrap}
+</style>
+<style id="list-pages">
+.lname{font-weight:700;font-size:15px;overflow-wrap:anywhere}
+.lline{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.lline strong{color:#17243a}
+.lmeta{font-size:12px;color:var(--muted);margin-top:3px;overflow-wrap:anywhere}
+.oic{overflow:hidden}
+.oic img{width:100%;height:100%;object-fit:cover}
+.oic.big{width:56px;height:56px;font-size:24px}
+html body .ldel{background:transparent!important;color:#d64545!important;box-shadow:none;min-height:36px!important;padding:4px 8px!important;font-size:16px!important}
+.rp-nav{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.rp-mid{flex:1;min-width:0;display:grid;gap:4px;justify-items:center;text-align:center}
+html body .rp-mid input{width:100%;max-width:240px;text-align:center}
+html body .rp-nav>button{width:44px;padding:0!important;font-size:22px!important}
+</style>
+<style id="sync-ui">
+html body .syncstat{margin-left:auto;background:transparent!important;box-shadow:none;font-size:12px!important;font-weight:700;min-height:32px!important;padding:4px 8px!important;border-radius:8px;white-space:nowrap}
+.syncstat.ok{color:#18a875!important}.syncstat.busy{color:#3478ee!important}.syncstat.err{color:#d64545!important}.syncstat.out{color:#8b98aa!important}
+</style>
+<style id="final-ui">
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:max(20px,env(safe-area-inset-bottom));width:max-content;max-width:88vw;background:#17243a;color:#fff;padding:10px 14px;border-radius:12px;font-size:13px;z-index:95;box-shadow:0 6px 20px #0004;text-align:center;line-height:1.4}
+.syncstat.warn{color:#e08a00!important}
+</style>
+</head>
+<body><div class="app">
+<div class="topbar"><button id="menuBtn" class="menu-btn" aria-label="Mở menu" aria-expanded="false"><span></span><span></span><span></span></button><span class="tb-brand">🤑 Kiếm được 10 tỷ sẽ nghỉ làm</span><button id="syncStat" type="button" class="syncstat out">☁</button></div><div id="drawerBg" class="drawer-bg hidden"></div><aside id="drawer" class="drawer"><div class="drawer-head">🤑 Kiếm được 10 tỷ sẽ nghỉ làm<small>Làm hết mình, nghỉ hưu thật sớm 😎</small></div><nav class="menu"><button class="active" data-page="dashboard">▦ Tổng quan</button><button data-page="orders">▤ Đơn hàng</button><button data-page="customers">♙ Khách hàng</button><button data-page="products">▣ Sản phẩm</button><button data-page="expenses">＋ Chi phí</button><button data-page="reports">▥ Báo cáo</button><button data-page="settings">⚙ Dữ liệu</button></nav><div class="drawer-note">💸 Mục tiêu: 10 tỷ rồi tính tiếp!</div></aside>
+<main class="main"><header class="app-topbar"><div class="searchbox">⌕ <input id="globalSearch" placeholder="Tìm kiếm đơn hàng, khách hàng, sản phẩm..."></div><div class="profile-chip"><span class="profile-avatar">M</span><span><strong>Team nghỉ hưu sớm 😎</strong><small>Quản lý bán hàng</small></span></div></header><div class="top"><div><div class="muted" id="today"></div><h1 id="pageTitle">Tổng quan</h1></div><button id="quickAdd">＋ Tạo đơn hàng</button></div><div id="page"></div></main></div>
+<div id="modal" class="modal hidden"><div class="dialog"><div class="dialoghead"><h2 id="modalTitle"></h2><button class="secondary small" id="closeModal">✕</button></div><div id="modalBody"></div></div></div>
+<div id="toast" class="toast hidden" role="status"></div>
+<div id="loadingOverlay" class="loading-overlay hidden">
+  <div class="loading-spinner"></div>
+  <div id="loadingText" class="loading-text">Đang lưu & đồng bộ đơn hàng...</div>
+</div>
+<div id="orderPage" class="fp hidden"></div>
+<div id="pickPage" class="fp hidden" style="z-index:75"><div class="fp-head"><button type="button" onclick="closePicker()" aria-label="Quay lại">‹</button><h2>Chọn hàng hóa</h2></div><div class="fp-search"><input id="pickQ" placeholder="Lọc theo tên hàng..." oninput="renderPick()"></div><div class="fp-body" id="pickList"></div><div class="fp-foot"><button type="button" class="secondary" onclick="pickCustom()">＋ Sản phẩm ngoài</button><button type="button" onclick="pickDone()">Tiếp tục (<span id="pickCount">0</span>)</button></div></div>
+<script>
+const KEY='mysales_v1';
+let db=load();
+let page='dashboard';
+let orderLines=[];
+let cloud=null,cloudUser=null,cloudBusy=false;
+
+function load(){
+  let raw=null;
+  try{
+    raw=localStorage.getItem(KEY);
+    let d=JSON.parse(raw)||{};
+    for(const k of ['orders','customers','products','expenses'])if(!Array.isArray(d[k]))d[k]=[];
+    return d;
+  }catch{
+    return{orders:[],customers:[],products:[],expenses:[]};
+  }
+}
+
+const money=n=>(Number(n)||0).toLocaleString('vi-VN')+'\u00a0₫';
+const num=v=>Number(String(v??'').replace(/[^0-9-]/g,''))||0;
+const qtyVal=v=>{let n=parseFloat(String(v??'').replace(',','.'));return Number.isFinite(n)?n:0};
+const fmtMoneyInput=v=>{let d=String(v??'').replace(/[^0-9]/g,'');return d?d.replace(/\B(?=(\d{3})+(?!\d))/g,'.'):''};
+
+document.addEventListener('input',e=>{
+  if(e.target.matches('[data-money],#pCost,#pPrice,#eAmount,#oExtra')||((e.target.tagName==='INPUT')&&e.target.inputMode==='numeric'&&e.target.title!=='Số lượng'&&!e.target.title?.includes('Số lượng'))){
+    let el=e.target,old=el.value,next=fmtMoneyInput(old);
+    if(next!==old){el.value=next;try{el.setSelectionRange(next.length,next.length)}catch(_){}}
+  }
+});
+
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const today=()=>new Date().toLocaleDateString('sv-SE');
+const dateFmt=d=>d?new Date(d+'T00:00:00').toLocaleDateString('vi-VN'):'—';
+
+function customer(id){return db.customers.find(x=>x.id===id)}
+function product(id){return db.products.find(x=>x.id===id)}
+function orderProfit(o){return o.lines.reduce((s,l)=>s+(num(l.price)-num(l.cost))*qtyVal(l.qty),0)+num(o.surcharge)-num(o.extraCost)-expensesTotal(db.expenses.filter(e=>e.orderId===o.id))}
+function revenue(o){return o.lines.reduce((s,l)=>s+num(l.price)*qtyVal(l.qty),0)+num(o.surcharge)}
+function cost(o){return o.lines.reduce((s,l)=>s+num(l.cost)*qtyVal(l.qty),0)}
+function expensesTotal(list){return list.reduce((s,x)=>s+num(x.amount),0)}
+function inRange(d,from,to){return d>=from&&d<=to}
+function weekStart(d){let x=new Date(d+'T00:00:00');let day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);return x.toLocaleDateString('sv-SE')}
+function totals(orders,expenses){let r=orders.reduce((s,o)=>s+revenue(o),0),c=orders.reduce((s,o)=>s+cost(o),0),e=expensesTotal(expenses)+orders.reduce((s,o)=>s+num(o.extraCost),0);return{r,c,e,p:r-c-e,n:orders.length}}
+
+function render(){
+  document.getElementById('quickAdd').classList.toggle('hidden',page!=='dashboard');
+  document.getElementById('today').textContent=new Date().toLocaleDateString('vi-VN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('pageTitle').textContent=({dashboard:'Tổng quan',orders:'Đơn hàng',customers:'Khách hàng',products:'Sản phẩm',expenses:'Chi phí',reports:'Báo cáo',settings:'Dữ liệu'})[page];
+  document.querySelectorAll('.menu button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+  let el=document.getElementById('page');
+  el.innerHTML=({dashboard:dashboardPage,orders:ordersPage,customers:customersPage,products:productsPage,expenses:expensesPage,reports:reportsPage,settings:settingsPage})[page]();
+}
+
+function metric(label,value,note='',ico='•',tone='blue'){
+  return `<div class="card metric-card"><div class="metric-top"><div class="metric-label">${label}</div><span class="metric-icon ${tone}">${ico}</span></div><div class="metric">${value}</div><div class="metric-note">${note}</div></div>`;
+}
+
+function analyticsChart(data,series,compact=false){
+  if(!data.length)return '<div class="empty">Chưa có dữ liệu để vẽ biểu đồ.</div>';
+  const W=820,H=compact?190:250,L=58,R=18,T=18,B=38,innerW=W-L-R,innerH=H-T-B;
+  const vals=data.flatMap(d=>series.map(z=>num(d[z.key]))),lo=Math.min(0,...vals),hi=Math.max(1,...vals),pad=(hi-lo)*.12||1,min=lo-pad,max=hi+pad;
+  const x=i=>L+(data.length===1?innerW/2:i*innerW/(data.length-1)),y=v=>T+(max-v)/(max-min)*innerH;
+  let grid='';for(let i=0;i<5;i++){let v=max-(max-min)*i/4,yy=y(v);grid+=`<line class="chart-gridline" x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}"/><text class="chart-axis" x="${L-8}" y="${yy+3}" text-anchor="end">${Math.abs(v)>=1000000?(v/1000000).toFixed(1)+'tr':Math.abs(v)>=1000?Math.round(v/1000)+'k':Math.round(v)}</text>`}
+  const bars=series.filter(z=>z.type==='bar'),barW=Math.min(compact?25:34,innerW/Math.max(data.length,1)*.42);
+  const chartAmount=v=>{let n=Math.round(num(v)),a=Math.abs(n);if(a>=1000000)return (n/1000000).toLocaleString('vi-VN',{maximumFractionDigits:1})+'tr';if(a>=1000)return (n/1000).toLocaleString('vi-VN',{maximumFractionDigits:1})+'k';return String(n)};
+  let shapes=data.map((d,i)=>{let group=bars.length,each=barW/Math.max(group,1);return bars.map((z,j)=>{let xx=x(i)+(j-(group-1)/2)*each-each/2,yy=y(num(d[z.key])),base=y(0),top=Math.min(yy,base);return `<rect x="${xx}" y="${top}" width="${each*.82}" height="${Math.max(1,Math.abs(base-yy))}" rx="3" fill="${z.color}"><title>${z.label}: ${money(d[z.key])}</title></rect>`}).join('')}).join('');
+  let lines=series.filter(z=>z.type!=='bar').map((z,zi)=>{let pts=data.map((d,i)=>`${x(i)},${y(num(d[z.key]))}`).join(' ');let dots=data.map((d,i)=>{let cy=y(num(d[z.key])),labelY=Math.min(H-B-16,cy+18+(zi*10));return `<circle class="chart-point" cx="${x(i)}" cy="${cy}" r="3.5" fill="${z.color}"><title>${z.label}: ${money(d[z.key])}</title></circle><text x="${x(i)}" y="${labelY}" text-anchor="middle" class="chart-value-label" fill="${z.color}">${chartAmount(d[z.key])}</text>`}).join('');return `<polyline class="chart-line" stroke="${z.color}" points="${pts}"/>${dots}`}).join('');
+  let labels=data.map((d,i)=>`<text class="chart-axis" x="${x(i)}" y="${H-10}" text-anchor="middle">${esc(d.label)}</text>`).join('');
+  return `<div class="analytics-chart ${compact?'compact-chart':''}"><svg viewBox="0 0 ${W} ${H}" role="img">${grid}${shapes}${lines}${labels}</svg></div><div class="analytics-legend">${series.map(z=>`<span><i class="legend-dot" style="background:${z.color}"></i>${z.label}</span>`).join('')}</div>`;
+}
+
+function expenseBreakdown(orders,expenses){
+  let ads=expensesTotal(expenses.filter(e=>(e.type||(e.category==='Quảng cáo'?'ads':'other'))==='ads'));
+  let other=expensesTotal(expenses.filter(e=>(e.type||(e.category==='Quảng cáo'?'ads':'other'))!=='ads'))+orders.reduce((a,o)=>a+num(o.extraCost),0);
+  return{ads,other};
+}
+
+function dashboardPage(){
+  let now=today(),month=now.slice(0,7);
+  let mo=db.orders.filter(o=>o.date.startsWith(month));
+  let me=db.expenses.filter(e=>e.date.startsWith(month)),mt=totals(mo,me),mb=expenseBreakdown(mo,me);
+  let recent=[...db.orders].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);
+  let overdue=db.customers.map(c=>({...c,last:db.orders.filter(o=>o.customerId===c.id).map(o=>o.date).sort().at(-1)})).filter(c=>c.last&&Math.floor((Date.now()-new Date(c.last+'T00:00:00'))/86400000)>=30);
+  let days=Array.from({length:7},(_,i)=>{let d=new Date();d.setDate(d.getDate()-6+i);let k=d.toLocaleDateString('sv-SE'),os=db.orders.filter(o=>o.date===k),es=db.expenses.filter(e=>e.date===k);let t=totals(os,es);return{key:k,label:k.slice(8)+'/'+k.slice(5,7),...t,totalCost:t.c+t.e}});
+  const rp=[{key:'r',label:'Doanh số',color:'#3478ee',type:'bar'},{key:'totalCost',label:'Chi phí',color:'#f29b38',type:'bar'},{key:'p',label:'Lợi nhuận',color:'#18a875',type:'line'}];
+  const srow=(lab,n)=>{let d=new Date();d.setDate(d.getDate()-n);let f=d.toLocaleDateString('sv-SE'),t=totals(db.orders.filter(o=>inRange(o.date,f,now)),db.expenses.filter(e=>inRange(e.date,f,now)));return `<tr><td>${lab}</td><td>${money(t.r)}</td><td class="${t.p<0?'negative':'positive'}">${money(t.p)}</td></tr>`};
+  return `<div class="dash">
+  <details class="fold d-fin" open><summary>📅 Tài chính tháng này</summary><div class="fold-body"><div class="fin-grid"><div><small>Doanh thu</small><strong class="rev">${money(mt.r)}</strong></div><div><small>Lợi nhuận</small><strong class="${mt.p<0?'negative':'positive'}">${money(mt.p)}</strong></div></div>
+  <div class="summary-stat"><span>Số đơn hàng</span><strong>${mo.length}</strong></div><div class="summary-stat"><span>Giá vốn hàng bán</span><strong>${money(mt.c)}</strong></div><div class="summary-stat"><span>Chi phí quảng cáo</span><strong>${money(mb.ads)}</strong></div><div class="summary-stat"><span>Chi phí khác</span><strong>${money(mb.other)}</strong></div>
+  <button class="secondary full-btn" onclick="page='reports';render()">Xem báo cáo chi tiết →</button></div></details>
+  <details class="fold d-chart" open><summary>📊 Biểu đồ 7 ngày gần đây</summary><div class="fold-body">${analyticsChart(days,rp,true)}</div></details>
+  <details class="fold d-stat" open><summary>📋 Thống kê</summary><div class="fold-body"><div class="tablewrap"><table class="stat-table"><thead><tr><th>--</th><th>Doanh thu</th><th>Lợi nhuận</th></tr></thead><tbody>${srow('Hôm nay',0)}${srow('7 ngày',6)}${srow('30 ngày',29)}</tbody></table></div></div></details>
+  <details class="fold d-recent" open><summary>🧾 Đơn hàng gần đây</summary><div class="fold-body">${recent.length?`<div class="tablewrap"><table><thead><tr><th>Ngày</th><th>Khách hàng</th><th>Doanh thu</th><th>Lợi nhuận</th></tr></thead><tbody>${recent.map(o=>`<tr><td>${dateFmt(o.date)}</td><td><strong>${esc(customer(o.customerId)?.name||'Khách lẻ')}</strong></td><td>${money(revenue(o))}</td><td class="${orderProfit(o)<0?'negative':'positive'}">${money(orderProfit(o))}</td></tr>`).join('')}</tbody></table></div><button class="link-btn" onclick="page='orders';render()">Xem tất cả →</button>`:'<div class="empty">Chưa có đơn hàng. Hãy tạo đơn đầu tiên.</div>'}</div></details>
+  <details class="fold d-care" open><summary>📞 Khách hàng cần chăm sóc</summary><div class="fold-body">${overdue.length?overdue.map(c=>`<div class="customerbox"><div><strong>${esc(c.name)}</strong><div class="muted">${esc(c.area||c.address||'Chưa có địa chỉ')}</div></div><span class="tag warn">${Math.floor((Date.now()-new Date(c.last+'T00:00:00'))/86400000)} ngày</span></div>`).join(''):'<div class="empty">Chưa có khách nào quá 30 ngày chưa mua.</div>'}</div></details>
+  </div>`;
+}
+
+function ordersPage(){
+  let rows=db.orders.map((o,i)=>({o,i})).sort((a,b)=>b.o.date.localeCompare(a.o.date)||b.i-a.i).map(x=>x.o);
+  return `<div class="toolbar"><input id="orderSearch" style="max-width:none;flex:1" placeholder="🔍 Lọc theo mã đơn hàng, tên khách, sản phẩm..."></div><div id="orderRows" class="olist">${rows.map(orderRow).join('')||'<div class="empty">Chưa có đơn hàng</div>'}</div>`;
+}
+
+function orderRow(o){
+  let c=customer(o.customerId)?.name||'Khách lẻ';
+  return `<div class="orow order-row" tabindex="0" role="button" onclick="showOrderDetail('${esc(o.id)}')" data-search="${esc((c+' '+o.id+' '+o.lines.map(l=>l.name).join(' ')).toLowerCase())}"><div class="oic">🧾</div><div class="omid"><div class="ocus">${esc(c)}</div><div class="ocode">${esc(o.id)}</div></div><div class="oright"><div class="odate">${dateFmt(o.date)}</div><div class="oamt">${money(revenue(o))}</div><div class="oprofit ${orderProfit(o)<0?'negative':'positive'}">Lãi ${money(orderProfit(o))}</div></div></div>`;
+}
+
+function showOrderDetail(id){
+  let o=db.orders.find(x=>x.id===id);if(!o)return;
+  let c=customer(o.customerId),linked=db.expenses.filter(e=>e.orderId===o.id),extra=num(o.extraCost),rev=revenue(o),baseCost=cost(o),linkedCost=expensesTotal(linked),profit=orderProfit(o);
+  openModal('Chi tiết đơn hàng',`<div class="order-detail"><div class="order-detail-head"><div><div class="muted">Mã đơn hàng</div><strong class="order-code">${esc(o.id)}</strong></div><span class="tag">${dateFmt(o.date)}</span></div><section class="detail-section"><h3>Khách hàng</h3><div class="detail-grid"><div><small>Tên khách hàng</small><strong>${esc(c?.name||'Khách lẻ / chưa lưu')}</strong></div><div><small>Số điện thoại</small><strong>${esc(c?.phone||'—')}</strong></div><div><small>Khu vực</small><strong>${esc(c?.area||'—')}</strong></div><div><small>Địa chỉ</small><strong>${esc(c?.address||'—')}</strong></div></div></section><section class="detail-section"><h3>Sản phẩm trong đơn (${o.lines.length})</h3><div class="tablewrap"><table class="detail-lines"><thead><tr><th>Sản phẩm</th><th>SL</th><th>Đơn giá</th><th>Giá vốn/đv</th><th>Thành tiền</th></tr></thead><tbody>${o.lines.map(l=>`<tr><td><strong>${esc(l.name)}</strong></td><td>${qtyVal(l.qty)}</td><td>${money(l.price)}</td><td>${money(l.cost)}</td><td><strong>${money(num(l.price)*qtyVal(l.qty))}</strong></td></tr>`).join('')}</tbody></table></div></section><section class="detail-section"><h3>Tổng kết tài chính</h3><div class="summaryline"><span>Doanh thu</span><strong>${money(rev)}</strong></div>${num(o.surcharge)?`<div class="summaryline"><span>Phụ phí (đã tính trong doanh thu)</span><strong>${money(o.surcharge)}</strong></div>`:''}<div class="summaryline"><span>Giá vốn hàng bán</span><strong>${money(baseCost)}</strong></div><div class="summaryline"><span>${o.shipFee!==undefined?'Phí vận chuyển':'Chi phí riêng của đơn'}</span><strong>${money(extra)}</strong></div><div class="summaryline"><span>Chi phí khác gắn với đơn</span><strong>${money(linkedCost)}</strong></div><div class="summaryline detail-profit"><strong>Lợi nhuận thực tế</strong><strong class="${profit<0?'negative':'positive'}">${money(profit)}</strong></div></section>${linked.length?`<section class="detail-section"><h3>Các khoản chi gắn với đơn</h3>${linked.map(e=>`<div class="summaryline"><span>${esc(e.name)} · ${dateFmt(e.date)}</span><strong>${money(e.amount)}</strong></div>`).join('')}</section>`:''}<section class="detail-section"><h3>Ghi chú</h3><p>${esc(o.note||'Không có ghi chú')}</p></section><div class="actions"><button class="secondary" onclick="closeModal()">Đóng</button><button class="danger" onclick="if(confirm('Bạn chắc chắn muốn xóa đơn hàng này?')){del('orders','${esc(o.id)}');closeModal()}">Xóa đơn hàng</button></div></div>`);
+}
+
+function customersPage(){
+  let filt=window.customerFilter||'all';
+  let rows=db.customers.map(c=>{let os=db.orders.filter(o=>o.customerId===c.id),last=os.map(o=>o.date).sort().at(-1),days=last?Math.floor((Date.now()-new Date(last+'T00:00:00'))/86400000):null;return{c,os,last,days}}).filter(x=>filt==='all'||(filt==='never'&&x.days===null)||(filt!=='never'&&x.days!==null&&x.days>=Number(filt))).sort((a,b)=>(b.days??-1)-(a.days??-1));
+  return `<div class="toolbar"><input id="customerSearch" style="max-width:none;flex:1;min-width:0" placeholder="🔍 Lọc theo tên, số điện thoại, khu vực..."><button onclick="openCustomer()">＋ Thêm</button></div><div class="toolbar"><button class="${filt==='all'?'':'secondary'} small" onclick="setCustomerFilter('all')">Tất cả</button><button class="${filt==='15'?'':'secondary'} small" onclick="setCustomerFilter('15')">≥ 15 ngày</button><button class="${filt==='30'?'':'secondary'} small" onclick="setCustomerFilter('30')">≥ 30 ngày</button><button class="${filt==='60'?'':'secondary'} small" onclick="setCustomerFilter('60')">≥ 60 ngày</button><button class="${filt==='never'?'':'secondary'} small" onclick="setCustomerFilter('never')">Chưa có đơn</button><span class="muted" style="font-size:12px">Hiển thị ${rows.length} khách</span></div><div id="customerRows" class="olist">${rows.map(({c,os,last,days})=>`<div class="orow" onclick="editCustomer('${c.id}')" data-search="${esc((c.name+' '+(c.phone||'')+' '+(c.area||'')+' '+(c.address||'')).toLowerCase())}"><div class="oic">👤</div><div class="omid"><div class="lname">${esc(c.name)}</div><div class="lline">📞 ${esc(c.phone||'Không có')}</div><div class="lline">🏠 ${esc([c.area,c.address].filter(Boolean).join(' · ')||'Không có')}</div><div class="lmeta">${os.length} đơn · ${money(os.reduce((s,o)=>s+revenue(o),0))} · ${days===null?'<span class="tag warn">Chưa có đơn</span>':days>=30?`<span class="tag warn">${days} ngày chưa nhập</span>`:`${days} ngày trước`}</div></div><button class="ldel" aria-label="Xóa khách hàng" onclick="event.stopPropagation();del('customers','${c.id}')">🗑</button></div>`).join('')||'<div class="empty">Không có khách hàng trong nhóm này</div>'}</div>`;
+}
+
+function setCustomerFilter(v){window.customerFilter=v;render()}
+
+function productsPage(){
+  return `<div class="notice">Ảnh sản phẩm được nén nhẹ và lưu riêng biệt, không làm chậm lúc mở web.</div><div class="toolbar"><button onclick="openProduct()">＋ Thêm sản phẩm</button></div><div class="olist">${db.products.map(p=>{let m=num(p.price)-num(p.cost);return `<div class="orow" onclick="editProduct('${p.id}')"><div class="oic big">${p.image?`<img src="${p.image}" alt="${esc(p.name)}">`:'📦'}</div><div class="omid"><div class="lname">${esc(p.name)}</div><div class="lline">Bán: <strong>${money(p.price)}</strong> · Vốn: ${money(p.cost)}</div><div class="lline">Lãi dự kiến: <span class="${m<0?'negative':'positive'}">${money(m)}</span></div>${p.note?`<div class="lmeta">${esc(p.note)}</div>`:''}</div><button class="ldel" aria-label="Xóa sản phẩm" onclick="event.stopPropagation();del('products','${p.id}')">🗑</button></div>`}).join('')||'<div class="empty">Chưa có sản phẩm</div>'}</div>`;
+}
+
+function expensesPage(){
+  let list=[...db.expenses].sort((a,b)=>b.date.localeCompare(a.date));
+  return `<div class="toolbar"><button onclick="openExpense()">＋ Ghi chi phí</button></div><div class="olist">${list.map(e=>{let ads=(e.type||(e.category==='Quảng cáo'?'ads':'other'))==='ads';return `<div class="orow"><div class="oic">${ads?'📣':'🧾'}</div><div class="omid"><div class="lname">${esc(e.name)}</div><div class="lline">${dateFmt(e.date)} · ${ads?'Quảng cáo':'Chi phí khác'}${e.category&&e.category!=='Quảng cáo'?' · '+esc(e.category):''}</div><div class="lmeta">${e.orderId?'Gắn với đơn '+esc(e.orderId):'Chi phí chung'}${e.note?' · '+esc(e.note):''}</div></div><div class="oright"><div class="oamt">${money(e.amount)}</div><button class="ldel" aria-label="Xóa chi phí" onclick="del('expenses','${e.id}')">🗑</button></div></div>`}).join('')||'<div class="empty">Chưa có chi phí</div>'}</div>`;
+}
+
+function reportsPage(){
+  let mode=window.reportMode||'day',anchor=window.reportDate||today(),{from,to}=reportRange(mode,anchor);
+  let oo=db.orders.filter(o=>inRange(o.date,from,to)),ee=db.expenses.filter(e=>inRange(e.date,from,to)),tt=totals(oo,ee),bb=expenseBreakdown(oo,ee),allCost=tt.c+bb.ads+bb.other;
+  let label=mode==='day'?dateFmt(anchor):mode==='week'?'Tuần '+dateFmt(from)+' – '+dateFmt(to):'Tháng '+anchor.slice(5,7)+'/'+anchor.slice(0,4);
+  let hint=mode==='day'?'Chọn ngày':mode==='week'?'Chọn ngày bất kỳ trong tuần':'Chọn tháng';
+  let pick=mode==='month'?`<input type="month" value="${anchor.slice(0,7)}" onchange="reportSet(this.value&&this.value+'-01')">`:`<input type="date" value="${anchor}" onchange="reportSet(this.value)">`;
+  let wd=['CN','T2','T3','T4','T5','T6','T7'],days=[];
+  if(mode!=='day'){for(let d=new Date(from+'T00:00:00');d.toLocaleDateString('sv-SE')<=to;d.setDate(d.getDate()+1)){let k=d.toLocaleDateString('sv-SE'),o1=oo.filter(o=>o.date===k),e1=ee.filter(e=>e.date===k),t1=totals(o1,e1),b1=expenseBreakdown(o1,e1);days.push({key:k,wd:wd[d.getDay()],label:mode==='week'?wd[d.getDay()]+' '+k.slice(8):k.slice(8),...t1,ads:b1.ads,other:b1.other,allCost:t1.c+b1.ads+b1.other,has:o1.length+e1.length})}}
+  let series=mode==='week'?[{key:'r',label:'Doanh thu',color:'#3478ee',type:'bar'},{key:'allCost',label:'Tổng chi phí',color:'#f29b38',type:'bar'},{key:'p',label:'Lợi nhuận',color:'#18a875',type:'line'}]:[{key:'r',label:'Doanh thu',color:'#3478ee',type:'bar'},{key:'p',label:'Lợi nhuận',color:'#18a875',type:'bar'}];
+  let dayRows=days.filter(d=>d.has).reverse().map(d=>`<div class="orow" onclick="reportDrill('${d.key}')"><div class="oic" style="font-weight:800;font-size:16px">${d.key.slice(8)}</div><div class="omid"><div class="lname">${d.wd} · ${dateFmt(d.key)}</div><div class="lline">${d.n} đơn · Vốn ${money(d.c)}</div><div class="lmeta">QC ${money(d.ads)} · Khác ${money(d.other)}</div></div><div class="oright"><div class="oamt">${money(d.r)}</div><div class="odate ${d.p<0?'negative':'positive'}">Lãi ${money(d.p)}</div></div></div>`).join('');
+  let detail=mode==='day'
+   ?`<section class="panel" style="margin-bottom:16px"><h2>Đơn hàng trong ngày</h2><div class="olist" style="box-shadow:none;border:0;padding:0">${[...oo].reverse().map(orderRow).join('')||'<div class="empty">Không có đơn hàng</div>'}</div></section><section class="panel"><h2>Chi phí trong ngày</h2><div class="olist" style="box-shadow:none;border:0;padding:0">${ee.map(e=>`<div class="orow"><div class="oic">${(e.type||(e.category==='Quảng cáo'?'ads':'other'))==='ads'?'📣':'🧾'}</div><div class="omid"><div class="lname">${esc(e.name)}</div><div class="lmeta">${e.orderId?'Gắn với đơn '+esc(e.orderId):'Chi phí chung'}</div></div><div class="oright"><div class="oamt">${money(e.amount)}</div></div></div>`).join('')||'<div class="empty">Không có chi phí ghi riêng</div>'}</div></section>`
+   :`<section class="panel" style="margin-bottom:16px"><h2>Doanh thu, lợi nhuận & chi phí theo ngày</h2>${analyticsChart(days,series)}</section><section class="panel"><h2>Chi tiết từng ngày</h2><div class="olist" style="box-shadow:none;border:0;padding:0">${dayRows||'<div class="empty">Chưa có dữ liệu trong khoảng này</div>'}</div></section>`;
+  return `<div class="toolbar"><button class="${mode==='day'?'':'secondary'}" onclick="reportSetMode('day')">Ngày</button><button class="${mode==='week'?'':'secondary'}" onclick="reportSetMode('week')">Tuần</button><button class="${mode==='month'?'':'secondary'}" onclick="reportSetMode('month')">Tháng</button></div>
+  <div class="rp-nav"><button class="secondary" onclick="reportShift(-1)">‹</button><div class="rp-mid"><strong>${label}</strong>${pick}<small class="muted">${hint}</small></div><button class="secondary" onclick="reportShift(1)">›</button></div>
+  <div class="toolbar"><button class="secondary small" onclick="reportToday()">${mode==='day'?'Hôm nay':mode==='week'?'Tuần này':'Tháng này'}</button></div>
+  <div class="cards report-metrics">${metric('Doanh thu',money(tt.r),label)}${metric('Tổng chi phí',money(allCost),'Giá vốn + quảng cáo + chi phí khác')}${metric('Chi phí quảng cáo',money(bb.ads))}${metric('Chi phí khác',money(bb.other))}</div><div class="report-profit-strip"><span><strong>Lợi nhuận ròng</strong><small>${tt.n} đơn hàng</small></span><strong class="${tt.p<0?'negative':'positive'}">${money(tt.p)}</strong></div>
+  ${detail}`;
+}
+
+function settingsPage(){
+  let cfg=JSON.parse(localStorage.getItem('mysales_supabase_config')||'{}');
+  return `${syncPanel()}${zoomPanel()}<section class="panel"><h2>Kết nối Supabase (Đồng bộ tách bảng siêu tốc)</h2><div class="notice">${cloudUser?`Đã đăng nhập: ${esc(cloudUser.email)} · Đang dùng chế độ đồng bộ từng mục riêng biệt.`:'Nhập Project URL và publishable key rồi đăng nhập.'}</div><div class="formgrid"><div class="field span2"><label>Supabase Project URL</label><input id="sbUrl" placeholder="https://xxxxxxxx.supabase.co" value="${esc(cfg.url||'')}"></div><div class="field span2"><label>Supabase publishable key</label><input id="sbKey" placeholder="sb_publishable_... hoặc anon key" value="${esc(cfg.key||'')}"></div><div class="field"><label>Email</label><input id="sbEmail" type="email" placeholder="email của bạn"></div><div class="field"><label>Mật khẩu</label><input id="sbPass" type="password" placeholder="Mật khẩu tài khoản"></div></div><div class="toolbar"><button onclick="connectCloud()">Lưu cấu hình</button><button class="secondary" onclick="cloudSignUp()">Tạo tài khoản</button><button class="secondary" onclick="cloudSignIn()">Đăng nhập & tải dữ liệu</button><button class="secondary" onclick="cloudSignOut()">Đăng xuất</button></div></section><section class="panel" style="margin-top:15px"><h2>Sao lưu và khôi phục dữ liệu</h2><div class="toolbar"><button onclick="backup()">↓ Xuất bản sao lưu JSON</button><label class="secondary" style="padding:10px 14px;border-radius:10px;cursor:pointer"><input type="file" id="restoreFile" accept="application/json" style="display:none" onchange="restore(event)">↑ Khôi phục từ JSON (Đẩy lên 4 bảng)</label><button class="secondary" onclick="exportOrders()">Xuất đơn hàng CSV</button></div><div class="summaryline"><span>Đơn hàng</span><strong>${db.orders.length}</strong></div><div class="summaryline"><span>Khách hàng</span><strong>${db.customers.length}</strong></div><div class="summaryline"><span>Sản phẩm</span><strong>${db.products.length}</strong></div><div class="summaryline"><span>Khoản chi</span><strong>${db.expenses.length}</strong></div></section>`;
+}
+
+function openModal(title,html,after){
+  document.getElementById('modalTitle').textContent=title;
+  document.getElementById('modalBody').innerHTML=html;
+  document.getElementById('modal').classList.remove('hidden');
+  if(after)after();
+}
+function closeModal(){document.getElementById('modal').classList.add('hidden')}
+document.getElementById('closeModal').onclick=closeModal;
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+
+/* ================= HIỆU ỨNG MỜ QUAY VÒNG KHI LƯU ================= */
+function showLoading(text){
+  let ov = G('loadingOverlay'), tx = G('loadingText');
+  if(tx) tx.textContent = text || 'Đang lưu & đồng bộ...';
+  if(ov) ov.classList.remove('hidden');
+}
+function hideLoading(){
+  let ov = G('loadingOverlay');
+  if(ov) ov.classList.add('hidden');
+}
+
+/* ================= CÁC HÀM THÊM / SỬA ĐÃ TÁCH BẢNG RIÊNG BIỆT ================= */
+
+// 1. KHÁCH HÀNG
+function openCustomer(){
+  openModal('Thêm khách hàng',`<div class="formgrid"><div class="field"><label>Tên khách hàng *</label><input id="cName" required></div><div class="field"><label>Số điện thoại</label><input id="cPhone"></div><div class="field"><label>Khu vực / tỉnh thành</label><input id="cArea" placeholder="Ví dụ: Từ Sơn, Bắc Ninh"></div><div class="field"><label>Địa chỉ chi tiết</label><input id="cAddress"></div><div class="field span2"><label>Ghi chú</label><textarea id="cNote" rows="2"></textarea></div></div><div class="actions"><button class="secondary" onclick="closeModal()">Hủy</button><button onclick="saveCustomer()">Lưu khách hàng</button></div>`);
+}
+
+async function saveCustomer(id=null){
+  let name=document.getElementById('cName').value.trim();
+  if(!name)return alert('Vui lòng nhập tên khách hàng');
+  let data={name,phone:cPhone.value.trim(),area:cArea.value.trim(),address:cAddress.value.trim(),note:cNote.value.trim(),_u:Date.now()};
+  let item;
+  if(id){
+    let c=customer(id);if(!c)return alert('Không tìm thấy khách hàng');
+    Object.assign(c,data);
+    item=c;
+  }else{
+    item={id:uid('KH'),...data};
+    db.customers.push(item);
+  }
+  closeModal();
+  showLoading('Đang lưu & đồng bộ khách hàng...');
+  try {
+    persist();
+    await pushSingleItem('customers', item);
+    render();
+    toast('✅ Đã lưu khách hàng!');
+  } finally {
+    hideLoading();
+  }
+}
+
+function editCustomer(id){
+  let c=customer(id);if(!c)return;
+  openModal('Chỉnh sửa khách hàng',`<div class="formgrid"><div class="field"><label>Tên khách hàng *</label><input id="cName" required value="${esc(c.name)}"></div><div class="field"><label>Số điện thoại</label><input id="cPhone" value="${esc(c.phone||'')}"></div><div class="field"><label>Khu vực / tỉnh thành</label><input id="cArea" value="${esc(c.area||'')}"></div><div class="field"><label>Địa chỉ chi tiết</label><input id="cAddress" value="${esc(c.address||'')}"></div><div class="field span2"><label>Ghi chú</label><textarea id="cNote" rows="2">${esc(c.note||'')}</textarea></div></div><div class="actions"><button class="secondary" onclick="closeModal()">Hủy</button><button onclick="saveCustomer('${id}')">Lưu thay đổi</button></div>`);
+}
+
+// 2. SẢN PHẨM
+function openProduct(){
+  openModal('Thêm sản phẩm',`<div class="formgrid"><div class="field span2"><label>Tên sản phẩm *</label><input id="pName"></div><div class="field"><label>Giá vốn (đ)</label><input id="pCost" type="text" inputmode="numeric" autocomplete="off"></div><div class="field"><label>Giá bán mặc định (đ)</label><input id="pPrice" type="text" inputmode="numeric" autocomplete="off"></div><div class="field span2"><label>Ảnh sản phẩm</label><input id="pImage" type="file" accept="image/*"><img id="pImagePreview" class="product-thumb hidden" style="width:100px;height:100px"></div><div class="field span2"><label>Ghi chú</label><input id="pNote"></div></div><div class="actions"><button class="secondary" onclick="closeModal()">Hủy</button><button onclick="saveProduct()">Lưu sản phẩm</button></div>`);
+  document.getElementById('pImage').onchange=e=>{let f=e.target.files[0],img=document.getElementById('pImagePreview');if(!f)return;let u=URL.createObjectURL(f);img.src=u;img.classList.remove('hidden')};
+}
+
+function compressProductImage(file){
+  return new Promise((resolve,reject)=>{
+    let r=new FileReader();
+    r.onload=()=>{
+      let im=new Image();
+      im.onload=()=>{
+        // Thu nhỏ kích thước tối đa 220px và chất lượng 0.45 để siêu nhẹ khi đồng bộ
+        let scale=Math.min(1,220/Math.max(im.width,im.height)),c=document.createElement('canvas');
+        c.width=Math.round(im.width*scale);c.height=Math.round(im.height*scale);
+        c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+        resolve(c.toDataURL('image/jpeg',0.45));
+      };
+      im.onerror=reject;im.src=r.result;
+    };
+    r.onerror=reject;r.readAsDataURL(file);
+  });
+}
+
+async function saveProduct(){
+  let name=document.getElementById('pName').value.trim();
+  if(!name)return alert('Vui lòng nhập tên sản phẩm');
+  let file=document.getElementById('pImage').files[0],image='';
+  showLoading('Đang xử lý ảnh & lưu sản phẩm...');
+  try{
+    if(file)image=await compressProductImage(file);
+    let item={id:uid('SP'),name,cost:num(pCost.value),price:num(pPrice.value),note:pNote.value.trim(),image,_u:Date.now()};
+    db.products.push(item);
+    closeModal();
+    persist();
+    await pushSingleItem('products', item);
+    render();
+    toast('✅ Đã lưu sản phẩm!');
+  }catch(e){
+    alert('Lỗi lưu sản phẩm: '+e.message);
+  }finally{
+    hideLoading();
+  }
+}
+
+function editProduct(id){
+  let p=product(id);if(!p)return;
+  openModal('Chỉnh sửa sản phẩm',`<div class="formgrid"><div class="field span2"><label>Tên sản phẩm *</label><input id="pName" value="${esc(p.name)}"></div><div class="field"><label>Giá vốn (đ)</label><input id="pCost" type="text" inputmode="numeric" value="${fmtMoneyInput(p.cost)}"></div><div class="field"><label>Giá bán (đ)</label><input id="pPrice" type="text" inputmode="numeric" value="${fmtMoneyInput(p.price)}"></div><div class="field span2"><label>Ảnh sản phẩm</label><input id="pImage" type="file" accept="image/*"><img id="pImagePreview" class="product-thumb ${p.image?'':'hidden'}" style="width:100px;height:100px" ${p.image?`src="${p.image}"`:''}></div><div class="field span2"><label>Ghi chú</label><input id="pNote" value="${esc(p.note||'')}"></div></div><div class="actions"><button class="secondary" onclick="closeModal()">Hủy</button><button onclick="updateProduct('${id}')">Lưu thay đổi</button></div>`);
+  document.getElementById('pImage').onchange=e=>{let f=e.target.files[0],img=document.getElementById('pImagePreview');if(!f)return;img.src=URL.createObjectURL(f);img.classList.remove('hidden')};
+}
+
+async function updateProduct(id){
+  let p=product(id);if(!p)return;
+  let name=document.getElementById('pName').value.trim();
+  if(!name)return alert('Vui lòng nhập tên sản phẩm');
+  let file=document.getElementById('pImage').files[0],image=p.image||'';
+  showLoading('Đang cập nhật sản phẩm...');
+  try{
+    if(file)image=await compressProductImage(file);
+    Object.assign(p,{name,cost:num(pCost.value),price:num(pPrice.value),note:pNote.value.trim(),image,_u:Date.now()});
+    closeModal();
+    persist();
+    await pushSingleItem('products', p);
+    render();
+    toast('✅ Đã cập nhật sản phẩm!');
+  }catch(e){
+    alert('Lỗi cập nhật: '+e.message);
+  }finally{
+    hideLoading();
+  }
+}
+
+// 3. CHI PHÍ
+function openExpense(){
+  openModal('Ghi nhận chi phí',`<div class="formgrid"><div class="field"><label>Ngày *</label><input id="eDate" type="date" value="${today()}"></div><div class="field"><label>Tên khoản chi *</label><input id="eName" placeholder="Facebook Ads, vận chuyển, đóng gói..."></div><div class="field"><label>Loại chi phí</label><select id="eType"><option value="ads">Chi phí quảng cáo</option><option value="other" selected>Chi phí khác</option></select></div><div class="field"><label>Nhóm chi phí</label><select id="eCat"><option>Vận chuyển</option><option>Đóng gói</option><option>Quảng cáo</option><option>Đi lại</option><option>Khác</option></select></div><div class="field"><label>Số tiền (đ) *</label><input id="eAmount" type="text" inputmode="numeric" autocomplete="off"></div><div class="field"><label>Gắn với đơn hàng</label><select id="eOrder"><option value="">Chi phí chung</option>${db.orders.map(o=>`<option value="${o.id}">${o.id} · ${esc(customer(o.customerId)?.name||'Khách lẻ')}</option>`).join('')}</select></div><div class="field"><label>Ghi chú</label><input id="eNote"></div></div><div class="actions"><button class="secondary" onclick="closeModal()">Hủy</button><button onclick="saveExpense()">Lưu chi phí</button></div>`);
+}
+
+async function saveExpense(){
+  if(!eName.value.trim()||num(eAmount.value)<=0)return alert('Nhập tên khoản chi và số tiền hợp lệ');
+  let obj={id:uid('CP'),date:eDate.value||today(),name:eName.value.trim(),category:eCat.value,type:eType.value,amount:num(eAmount.value),orderId:eOrder.value,note:eNote.value.trim(),_u:Date.now()};
+  db.expenses.push(obj);
+  closeModal();
+  showLoading('Đang lưu & đồng bộ chi phí...');
+  try {
+    persist();
+    await pushSingleItem('expenses', obj);
+    render();
+    toast('✅ Đã lưu chi phí!');
+  } finally {
+    hideLoading();
+  }
+}
+
+// 4. XÓA MỤC RIÊNG BIỆT
+async function del(type,id){
+  if(!confirm('Bạn chắc chắn muốn xóa mục này?'))return;
+  showLoading('Đang xóa & đồng bộ...');
+  try {
+    if(type==='orders'){
+      let linkedIds = db.expenses.filter(e=>e.orderId===id).map(e=>e.id);
+      db.expenses=db.expenses.filter(e=>e.orderId!==id);
+      for(let eid of linkedIds) await deleteRemoteItem('expenses', eid);
+    }
+    db[type]=db[type].filter(x=>x.id!==id);
+    persist();
+    await deleteRemoteItem(type, id);
+    render();
+    toast('🗑 Đã xóa thành công!');
+  } finally {
+    hideLoading();
+  }
+}
+
+function uid(prefix){return prefix+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,6)}
+function backup(){download('mysales-backup-'+today()+'.json',JSON.stringify(db,null,2),'application/json')}
+
+async function restore(ev){
+  let f=ev.target.files[0];if(!f)return;
+  let r=new FileReader();
+  r.onload=async()=>{
+    try{
+      let d=JSON.parse(r.result);
+      if(!d.orders||!d.customers||!d.products||!d.expenses)throw Error();
+      if(confirm('Khôi phục sẽ nạp toàn bộ dữ liệu từ file lên 4 bảng đám mây. Tiếp tục?')){
+        db=d; persist(); render();
+        if(cloudUser) {
+          showLoading('Đang đẩy dữ liệu khôi phục lên đám mây...');
+          await pushAllFromBackup();
+          hideLoading();
+        }
+        alert('Đã khôi phục và đồng bộ xong!');
+      }
+    }catch{alert('File sao lưu không hợp lệ')}
+  };
+  r.readAsText(f);
+}
+
+function download(name,content,type){let a=document.createElement('a'),u=URL.createObjectURL(new Blob([content],{type}));a.href=u;a.download=name;a.click();URL.revokeObjectURL(u)}
+function exportOrders(){let rows=[['Ngày','Mã đơn','Khách hàng','Sản phẩm','Doanh thu','Giá vốn','Chi phí riêng','Lợi nhuận'],...db.orders.map(o=>[o.date,o.id,customer(o.customerId)?.name||'Khách lẻ',o.lines.map(l=>`${l.name} x${qtyVal(l.qty)}`).join('; '),revenue(o),cost(o),o.extraCost,orderProfit(o)])];download('mysales-don-hang.csv','\ufeff'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\n'),'text/csv;charset=utf-8')}
+
+/* ===== ĐỒNG BỘ ĐÁM MÂY TÁCH BẢNG ĐỘC LẬP ===== */
+const COLS=['orders','customers','products','expenses'],CFG_KEY='mysales_supabase_config',MODE_KEY='mysales_offline_mode',OK_KEY='mysales_lastok';
+const SB_SRC=['https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2','https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js'];
+let syncState='out',syncMsg='',libLoading=false,lastOk=0,savingOrder=false;
+try{lastOk=Number(localStorage.getItem(OK_KEY))||0}catch{}
+
+const cloudCfg=()=>{try{return JSON.parse(localStorage.getItem(CFG_KEY)||'{}')||{}}catch{return{}}};
+const cloudConfigured=()=>{let c=cloudCfg();return !!(c.url&&c.key)};
+const offlineMode=()=>localStorage.getItem(MODE_KEY)==='block'?'block':'queue';
+
+function persist(){
+  try{localStorage.setItem(KEY,JSON.stringify(db));return true}
+  catch(e){alert('⚠️ Bộ nhớ trình duyệt đầy!');return false}
+}
+function markOk(){lastOk=Date.now();try{localStorage.setItem(OK_KEY,String(lastOk))}catch{}setSync('ok')}
+function newId(p){return p+'-'+Date.now().toString(36).toUpperCase()+Math.random().toString(36).slice(2,4).toUpperCase()}
+
+function setSync(st,msg){
+  if(st){syncState=st;syncMsg=msg||''}
+  let b=document.getElementById('syncStat');if(!b)return;
+  let s=syncState;if(!cloudConfigured())s='none';else if(!navigator.onLine)s='off';
+  const T={ok:['☁ Đã đồng bộ','ok'],busy:['☁ Đang đồng bộ…','busy'],err:['⚠ Lỗi đồng bộ','err'],out:['☁ Chưa đăng nhập','out'],none:['☁ Chưa bật đồng bộ','out'],nolib:['⚠ Lỗi thư viện','err'],off:['📴 Offline','warn']}[s]||['☁','out'];
+  b.textContent=T[0];b.className='syncstat '+T[1];b.title=syncMsg;
+}
+
+document.getElementById('syncStat').onclick=()=>{page='settings';render()};
+function toast(m,ms){let t=document.getElementById('toast');if(!t)return;t.textContent=m;t.classList.remove('hidden');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.add('hidden'),ms||3500)}
+
+function ensureCloud(){
+  if(cloud)return true;
+  let c=cloudCfg();
+  if(!c.url||!c.key||!window.supabase)return false;
+  cloud=supabase.createClient(c.url,c.key);
+  return true;
+}
+
+function connectCloud(){
+  let url=document.getElementById('sbUrl').value.trim(),key=document.getElementById('sbKey').value.trim();
+  if(!/^https:\/\//.test(url)||!key)return alert('Nhập Project URL và key hợp lệ');
+  localStorage.setItem(CFG_KEY,JSON.stringify({url,key}));
+  cloud=null;cloudUser=null;ensureCloud();setSync('out');
+  alert('Đã lưu cấu hình. Tiếp theo hãy bấm Đăng nhập & tải dữ liệu.');render();
+}
+
+async function restoreSession(){
+  if(cloudUser)return true;
+  if(!ensureCloud())return false;
+  try{let {data}=await cloud.auth.getSession();if(data&&data.session)cloudUser=data.session.user}catch{}
+  return !!cloudUser;
+}
+
+async function cloudSignUp(){
+  if(!ensureCloud())return alert('Lưu cấu hình trước');
+  let email=document.getElementById('sbEmail').value.trim(),password=document.getElementById('sbPass').value;
+  let {data,error}=await cloud.auth.signUp({email,password});
+  if(error)return alert(error.message);
+  if(data.session){cloudUser=data.user;alert('Tạo tài khoản thành công!')}
+  render();
+}
+
+async function cloudSignIn(){
+  if(!ensureCloud())return alert('Lưu cấu hình trước');
+  let email=document.getElementById('sbEmail').value.trim(),password=document.getElementById('sbPass').value;
+  showLoading('Đang đăng nhập & tải dữ liệu mới...');
+  try {
+    let {data,error}=await cloud.auth.signInWithPassword({email,password});
+    if(error)throw error;
+    cloudUser=data.user;
+    await pullLightweightStartup();
+    toast('✅ Đăng nhập & đồng bộ thành công!');
+  } catch(e) {
+    alert('Lỗi đăng nhập: '+e.message);
+  } finally {
+    hideLoading();
+    render();
+  }
+}
+
+async function cloudSignOut(){
+  if(ensureCloud())await cloud.auth.signOut();
+  cloudUser=null;setSync('out');render();
+}
+
+/* --- HÀM ĐẨY 1 MỤC DUY NHẤT LÊN BẢNG TƯƠNG ỨNG --- */
+async function pushSingleItem(table, item) {
+  if(!cloudUser || !ensureCloud() || !navigator.onLine) return false;
+  setSync('busy');
+  try {
+    let payload = { ...item, user_id: cloudUser.id, updated_at: new Date().toISOString() };
+    if(table === 'orders') {
+      payload.customer_id = item.customerId || '';
+      payload.ship_fee = num(item.shipFee);
+      payload.extra_cost = num(item.extraCost);
+      delete payload.customerId; delete payload.shipFee; delete payload.extraCost;
+    }
+    if(table === 'expenses') {
+      payload.order_id = item.orderId || '';
+      delete payload.orderId;
+    }
+    let { error } = await cloud.from(table).upsert(payload);
+    if(error) throw error;
+    markOk();
+    return true;
+  } catch(e) {
+    setSync('err', e.message);
+    return false;
+  }
+}
+
+async function deleteRemoteItem(table, id) {
+  if(!cloudUser || !ensureCloud() || !navigator.onLine) return;
+  try {
+    await cloud.from(table).delete().eq('id', id).eq('user_id', cloudUser.id);
+    markOk();
+  } catch(e) { setSync('err', e.message); }
+}
+
+/* --- KHI MỞ WEB: CHỈ TẢI DỮ LIỆU MỚI & KHÔNG TẢI LẠI ẢNH NẶNG ĐÃ CÓ --- */
+async function pullLightweightStartup() {
+  if(!cloudUser || !ensureCloud() || !navigator.onLine) return;
+  setSync('busy');
+  try {
+    // 1. Tải song song Orders, Customers, Expenses (toàn bộ là text nên cực nhẹ, chỉ vài KB)
+    const [resO, resC, resE] = await Promise.all([
+      cloud.from('orders').select('*').eq('user_id', cloudUser.id),
+      cloud.from('customers').select('*').eq('user_id', cloudUser.id),
+      cloud.from('expenses').select('*').eq('user_id', cloudUser.id)
+    ]);
+
+    if(resO.data) {
+      db.orders = resO.data.map(r => ({
+        id: r.id, date: r.date, customerId: r.customer_id, lines: r.lines || [],
+        surcharge: r.surcharge, shipFee: r.ship_fee, extraCost: r.extra_cost, note: r.note, _u: r._u
+      }));
+    }
+    if(resC.data) db.customers = resC.data;
+    if(resE.data) {
+      db.expenses = resE.data.map(r => ({
+        id: r.id, date: r.date, name: r.name, category: r.category, type: r.type,
+        amount: r.amount, orderId: r.order_id, note: r.note, _u: r._u
+      }));
+    }
+
+    // 2. Với Sản phẩm: Chỉ lấy thông tin chữ (id, name, cost, price, note, _u) KHÔNG lấy cột image nặng trước
+    const resP = await cloud.from('products').select('id, name, cost, price, note, _u').eq('user_id', cloudUser.id);
+    if(resP.data) {
+      let oldMap = new Map(db.products.map(p => [p.id, p]));
+      let missingImgIds = [];
+      db.products = resP.data.map(r => {
+        let localP = oldMap.get(r.id);
+        // Nếu máy đã có sẵn ảnh của SP này và bản ghi không đổi thì giữ nguyên ảnh trên máy, không tải lại!
+        if(localP && localP.image && localP._u === r._u) {
+          return { ...r, image: localP.image };
+        } else {
+          missingImgIds.push(r.id);
+          return { ...r, image: localP?.image || '' };
+        }
+      });
+
+      // Chỉ tải ảnh cho những sản phẩm mới thêm hoặc bị thay đổi ảnh
+      if(missingImgIds.length > 0) {
+        const resImgs = await cloud.from('products').select('id, image').in('id', missingImgIds);
+        if(resImgs.data) {
+          resImgs.data.forEach(imgRow => {
+            let target = db.products.find(x => x.id === imgRow.id);
+            if(target && imgRow.image) target.image = imgRow.image;
+          });
+        }
+      }
+    }
+
+    persist();
+    render();
+    markOk();
+  } catch(e) {
+    setSync('err', e.message);
+  }
+}
+
+/* Đẩy toàn bộ dữ liệu từ file JSON backup lên 4 bảng mới */
+async function pushAllFromBackup() {
+  if(!cloudUser) return;
+  for(let c of db.customers) await pushSingleItem('customers', c);
+  for(let p of db.products) await pushSingleItem('products', p);
+  for(let o of db.orders) await pushSingleItem('orders', o);
+  for(let e of db.expenses) await pushSingleItem('expenses', e);
+}
+
+/* --- LƯU ĐƠN HÀNG MỚI (CÓ MỜ QUAY VÒNG & ĐỒNG BỘ RIÊNG BẢNG ORDERS) --- */
+async function saveOrder(){
+  if(savingOrder)return;
+  let lines=orderLines.filter(l=>l.name.trim()&&qtyVal(l.qty)>0);
+  if(!lines.length)return alert('Thêm ít nhất một sản phẩm có tên và số lượng lớn hơn 0');
+  
+  let o={
+    id:newId('DH'),
+    date:G('oDate').value||today(),
+    customerId:G('oCustomer').value,
+    lines:lines.map(l=>({...l,qty:qtyVal(l.qty)})),
+    surcharge:num(G('oSur').value),
+    shipFee:num(G('oShip').value),
+    extraCost:num(G('oShip').value),
+    note:G('oNote').value.trim(),
+    _u:Date.now()
+  };
+
+  savingOrder = true;
+  let btn = document.querySelector('#orderPage .fp-save');
+  if(btn) btn.disabled = true;
+  showLoading('Đang lưu & đồng bộ đơn hàng...');
+
+  try{
+    db.orders.push(o);
+    persist();
+    if(cloudConfigured() && navigator.onLine){
+      if(cloudUser || await restoreSession()) {
+        await pushSingleItem('orders', o);
+      }
+    }
+    closeOrderPage(false);
+    render();
+    toast('✅ Đã tạo và đồng bộ đơn hàng!');
+  }finally{
+    savingOrder = false;
+    if(btn) btn.disabled = false;
+    hideLoading();
+  }
+}
+
+/* --- KHỞI ĐỘNG --- */
+function loadScript(u){return new Promise(res=>{let t=document.createElement('script');t.src=u;t.onload=()=>res(true);t.onerror=()=>res(false);document.head.appendChild(t)})}
+async function boot(){
+  if(!window.supabase){
+    for(const u of SB_SRC){if(await loadScript(u))break}
+  }
+  if(cloudConfigured() && ensureCloud()){
+    if(await restoreSession()){
+      await pullLightweightStartup();
+    } else setSync('out');
+  } else setSync('none');
+}
+
+function syncPanel(){
+  return `<section class="panel" style="margin-bottom:15px"><h2>Trạng thái đồng bộ</h2><p class="muted" style="font-size:12px">${cloudUser?'Đã đăng nhập: '+esc(cloudUser.email):'Chưa đăng nhập'}${lastOk?' · Đồng bộ gần nhất: '+new Date(lastOk).toLocaleTimeString('vi-VN'):''}</p><div class="toolbar"><button onclick="pullLightweightStartup().then(()=>toast('✅ Đã làm mới dữ liệu'))">🔄 Tải dữ liệu mới từ Cloud</button></div></section>`;
+}
+
+document.querySelectorAll('.menu button').forEach(b=>b.onclick=()=>{page=b.dataset.page;closeDrawer();render();scrollTo(0,0)});
+document.getElementById('quickAdd').onclick=()=>openOrder();
+const dr=document.getElementById('drawer'),bg=document.getElementById('drawerBg'),mb=document.getElementById('menuBtn');
+function closeDrawer(){dr.classList.remove('open');bg.classList.add('hidden');mb.setAttribute('aria-expanded','false')}
+mb.onclick=()=>{let o=!dr.classList.contains('open');dr.classList.toggle('open',o);bg.classList.toggle('hidden',!o);mb.setAttribute('aria-expanded',String(o))};
+bg.onclick=closeDrawer;
+document.getElementById('page').addEventListener('input',e=>{
+  if(e.target.id==='orderSearch'){let q=e.target.value.toLowerCase();document.querySelectorAll('#orderRows > *').forEach(r=>r.classList.toggle('hidden',!r.dataset.search?.includes(q)))}
+  if(e.target.id==='customerSearch'){let q=e.target.value.toLowerCase();document.querySelectorAll('#customerRows > *').forEach(r=>r.classList.toggle('hidden',!r.dataset.search?.includes(q)))}
+});
+
+render();
+boot();
+
+/* ===== TRANG TẠO ĐƠN TOÀN MÀN HÌNH ===== */
+const G=id=>document.getElementById(id);
+let pickSel=new Set();
+const custOpts=sel=>'<option value="">Khách lẻ / chưa lưu</option>'+db.customers.map(c=>`<option value="${esc(c.id)}"${c.id===sel?' selected':''}>${esc(c.name)}${c.area?' · '+esc(c.area):''}</option>`).join('');
+
+function openOrder(){
+  orderLines=[];
+  G('orderPage').innerHTML=`<div class="fp-head"><button type="button" onclick="closeOrderPage(true)">‹</button><h2>Thêm đơn bán</h2><button type="button" class="fp-save" onclick="saveOrder()">💾 Lưu</button></div>
+<div class="fp-body">
+ <div class="sec"><div class="sec-head"><strong>Hàng hóa</strong><button type="button" class="secondary" onclick="openPicker()">＋ Thêm</button></div><div id="orderLines"></div></div>
+ <div class="sec"><div class="sec-head"><div class="grow"><small class="muted">Khách hàng</small><select id="oCustomer" onchange="ocShow()">${custOpts('')}</select></div><button type="button" class="secondary" onclick="ocToggleNew()">＋ Thêm</button></div>
+  <div class="kv"><span>📞 SĐT</span><b id="ocPhone">Không có</b></div><div class="kv"><span>🏠 Địa chỉ</span><b id="ocAddr">Không có</b></div>
+  <div id="ocNew" class="hidden"><div class="kv"><span>Tên *</span><input id="nName"></div><div class="kv"><span>SĐT</span><input id="nPhone" inputmode="tel"></div><div class="kv"><span>Khu vực</span><input id="nArea" placeholder="Từ Sơn, Bắc Ninh"></div><div class="kv"><span>Địa chỉ</span><input id="nAddress"></div><button type="button" class="full-btn" onclick="ocSaveNew()">Lưu khách hàng</button></div></div>
+ <div class="sec"><div class="kv"><span>Ngày bán</span><input id="oDate" type="date" value="${today()}"></div><div class="kv"><span>Ghi chú</span><input id="oNote" placeholder="Giao sáng trước 9h..."></div></div>
+ <div class="sec"><div class="kv"><span>Phụ phí (thu thêm)</span><input id="oSur" inputmode="numeric" value="0" oninput="updateOrderSummary()"></div><div class="kv"><span>Phí vận chuyển (trừ đi)</span><input id="oShip" inputmode="numeric" value="0" oninput="updateOrderSummary()"></div><div id="orderSummary"></div></div>
+</div>
+<div class="fp-foot"><span>Tổng tiền</span><strong id="ofTotal">0 ₫</strong></div>`;
+  G('orderPage').classList.remove('hidden');document.body.style.overflow='hidden';renderOrderLines();ocShow();
+}
+
+function closeOrderPage(ask){if(ask&&orderLines.length&&!confirm('Bỏ đơn đang tạo?'))return;G('orderPage').classList.add('hidden');G('orderPage').innerHTML='';document.body.style.overflow=''}
+function ocShow(){let c=customer(G('oCustomer').value);G('ocPhone').textContent=c?.phone||'Không có';G('ocAddr').textContent=[c?.area,c?.address].filter(Boolean).join(' · ')||'Không có'}
+function ocToggleNew(){G('ocNew').classList.toggle('hidden')}
+
+async function ocSaveNew(){
+  let name=G('nName').value.trim();if(!name)return alert('Vui lòng nhập tên khách hàng');
+  let c={id:uid('KH'),name,phone:G('nPhone').value.trim(),area:G('nArea').value.trim(),address:G('nAddress').value.trim(),note:'',_u:Date.now()};
+  showLoading('Đang lưu khách hàng mới...');
+  try {
+    db.customers.push(c);
+    persist();
+    await pushSingleItem('customers', c);
+    G('oCustomer').innerHTML=custOpts(c.id);
+    G('ocNew').classList.add('hidden');
+    ['nName','nPhone','nArea','nAddress'].forEach(k=>G(k).value='');
+    ocShow();
+    toast('✅ Đã thêm khách hàng!');
+  } finally {
+    hideLoading();
+  }
+}
+
+const lineTotal=l=>money(num(l.price)*qtyVal(l.qty));
+function olHtml(l,i){let p=product(l.productId),img=p&&p.image?`<img src="${p.image}" alt="">`:'<div class="ph">📦</div>';
+  return `<div class="ol"><div>${img}</div><div><div class="ol-name">${i+1}. ${l.productId?esc(l.name):`<input class="ol-nm" placeholder="Tên sản phẩm ngoài..." value="${esc(l.name)}" oninput="orderLines[${i}].name=this.value">`}</div>
+<div class="stepper"><button type="button" onclick="olQty(${i},-1)">−</button><input inputmode="decimal" value="${l.qty}" oninput="olSet(${i},this.value)" onchange="olFix(${i},this)"><button type="button" onclick="olQty(${i},1)">+</button></div> <span class="muted">kg</span>
+${l.productId?'':`<input class="ol-cost" inputmode="numeric" placeholder="Giá vốn / 1kg" value="${fmtMoneyInput(l.cost)}" oninput="orderLines[${i}].cost=num(this.value);updateOrderSummary()">`}</div>
+<div class="ol-price"><button type="button" class="small danger" onclick="olDel(${i})">×</button><div class="ol-total" id="olt${i}">${lineTotal(l)}</div><input class="ol-unit" inputmode="numeric" placeholder="đ / 1kg" value="${fmtMoneyInput(l.price)}" oninput="olPrice(${i},this.value)"></div></div>`}
+
+function renderOrderLines(){let b=G('orderLines');if(!b)return;b.innerHTML=orderLines.map(olHtml).join('')||'<div class="empty">Chưa có hàng hóa. Bấm “＋ Thêm” để chọn.</div>';updateOrderSummary()}
+function olRefresh(i){let t=G('olt'+i);if(t)t.textContent=lineTotal(orderLines[i]);updateOrderSummary()}
+function olSet(i,v){orderLines[i].qty=Math.max(0,qtyVal(v));olRefresh(i)}
+function olFix(i,el){let q=qtyVal(orderLines[i].qty);if(!(q>0))q=1;orderLines[i].qty=q;el.value=q;olRefresh(i)}
+function olQty(i,d){let n=Math.round((qtyVal(orderLines[i].qty)+d)*100)/100;if(n<=0)n=0.5;orderLines[i].qty=n;renderOrderLines()}
+function olPrice(i,v){orderLines[i].price=num(v);olRefresh(i)}
+function olDel(i){orderLines.splice(i,1);renderOrderLines()}
+
+function updateOrderSummary(){
+  let goods=orderLines.reduce((s,l)=>s+qtyVal(l.qty)*num(l.price),0),c=orderLines.reduce((s,l)=>s+qtyVal(l.qty)*num(l.cost),0),q=orderLines.reduce((s,l)=>s+qtyVal(l.qty),0),sur=num(G('oSur')?.value),ship=num(G('oShip')?.value),total=goods+sur,p=total-c-ship;
+  let x=G('orderSummary');if(x)x.innerHTML=`<div class="summaryline"><span>Số lượng</span><strong>${q.toLocaleString('vi-VN')} kg</strong></div><div class="summaryline"><span>Tiền hàng</span><strong>${money(goods)}</strong></div><div class="summaryline"><span>Phụ phí</span><strong>+ ${money(sur)}</strong></div><div class="summaryline"><span>Tổng khách trả</span><strong>${money(total)}</strong></div><div class="summaryline"><span>Giá vốn</span><strong>${money(c)}</strong></div><div class="summaryline"><span>Phí vận chuyển</span><strong>− ${money(ship)}</strong></div><div class="summaryline"><strong>Lợi nhuận dự kiến</strong><strong class="${p<0?'negative':'positive'}">${money(p)}</strong></div>`;
+  let t=G('ofTotal');if(t)t.textContent=money(total);
+}
+
+function openPicker(){pickSel=new Set(orderLines.filter(l=>l.productId).map(l=>l.productId));G('pickQ').value='';G('pickPage').classList.remove('hidden');renderPick()}
+function closePicker(){G('pickPage').classList.add('hidden')}
+function renderPick(){let q=G('pickQ').value.trim().toLowerCase(),ps=db.products.filter(p=>p.name.toLowerCase().includes(q));
+  G('pickList').innerHTML=ps.map(p=>`<div class="pk ${pickSel.has(p.id)?'on':''}" onclick="pickToggle('${p.id}')"><div class="th">${p.image?`<img src="${p.image}" alt="">`:'📦'}<div class="tick">✓</div></div><div class="nm">${esc(p.name)}</div><div class="pr">${money(p.price)}</div></div>`).join('')||'<div class="empty">Chưa có sản phẩm.</div>';
+  G('pickCount').textContent=pickSel.size}
+function pickToggle(id){pickSel.has(id)?pickSel.delete(id):pickSel.add(id);renderPick()}
+function pickApply(){orderLines=orderLines.filter(l=>!l.productId||pickSel.has(l.productId));pickSel.forEach(id=>{if(!orderLines.some(l=>l.productId===id)){let p=product(id);if(p)orderLines.push({productId:id,name:p.name,qty:1,price:num(p.price),cost:num(p.cost)})}})}
+function pickDone(){pickApply();closePicker();renderOrderLines()}
+function pickCustom(){pickApply();orderLines.push({productId:'',name:'',qty:1,price:0,cost:0});closePicker();renderOrderLines()}
+
+function zoomPanel(){let z=Number(localStorage.getItem('mysales_zoom'))||1;return `<section class="panel" style="margin-bottom:15px"><h2>Cỡ hiển thị trên máy này</h2><div class="toolbar">${[0.8,0.85,0.9,1].map(v=>`<button class="${Math.abs(z-v)<.01?'':'secondary'}" onclick="setZoom(${v})">${Math.round(v*100)}%</button>`).join('')}</div></section>`}
+function setZoom(z){localStorage.setItem('mysales_zoom',z);document.body.style.zoom=z;render()}
+(function(){let z=Number(localStorage.getItem('mysales_zoom'));if(z>=.7&&z<=1.3)document.body.style.zoom=z})();
+
+function reportRange(mode,a){let d=new Date(a+'T00:00:00');if(mode==='day')return{from:a,to:a};if(mode==='week'){let f=weekStart(a);return{from:f,to:new Date(new Date(f+'T00:00:00').getTime()+6*86400000).toLocaleDateString('sv-SE')}}return{from:new Date(d.getFullYear(),d.getMonth(),1).toLocaleDateString('sv-SE'),to:new Date(d.getFullYear(),d.getMonth()+1,0).toLocaleDateString('sv-SE')}}
+function reportShift(n){let m=window.reportMode||'day',d=new Date((window.reportDate||today())+'T00:00:00');if(m==='day')d.setDate(d.getDate()+n);else if(m==='week')d.setDate(d.getDate()+7*n);else{d.setDate(1);d.setMonth(d.getMonth()+n)}window.reportDate=d.toLocaleDateString('sv-SE');render()}
+function reportSetMode(m){window.reportMode=m;render()}
+function reportSet(v){if(v){window.reportDate=v;render()}}
+function reportToday(){window.reportDate=today();render()}
+function reportDrill(d){window.reportMode='day';window.reportDate=d;render()}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}
+</script>
+</body>
+</html>
