@@ -148,6 +148,9 @@
   to { transform: rotate(360deg); }
 }
 .oprofit{font-size:12px;margin-top:1px;white-space:nowrap;margin-left:0!important}
+.tag.bad{background:#fdecec;color:#d93636}
+#cycleRows .lline{white-space:normal}
+#cycleRows a.tag{text-decoration:none;margin-left:4px}
 </style>
 <style>
 :root{--bg:#f3f6fc;--card:#fff;--ink:#17243a;--muted:#7c899d;--line:#e8edf5;--green:#18a875;--green2:#e8f8f1;--red:#d94d5c;--amber:#b97819;--blue:#3478ee;--shadow:0 5px 22px rgba(34,67,115,.055)}
@@ -604,7 +607,7 @@ html body .syncstat{margin-left:auto;background:transparent!important;box-shadow
 </style>
 </head>
 <body><div class="app">
-<div class="topbar"><button id="menuBtn" class="menu-btn" aria-label="Mở menu" aria-expanded="false"><span></span><span></span><span></span></button><span class="tb-brand">🤑 Kiếm được 10 tỷ sẽ nghỉ làm</span><button id="syncStat" type="button" class="syncstat out">☁</button></div><div id="drawerBg" class="drawer-bg hidden"></div><aside id="drawer" class="drawer"><div class="drawer-head">🤑 Kiếm được 10 tỷ sẽ nghỉ làm<small>Làm hết mình, nghỉ hưu thật sớm 😎</small></div><nav class="menu"><button class="active" data-page="dashboard">▦ Tổng quan</button><button data-page="orders">▤ Đơn hàng</button><button data-page="customers">♙ Khách hàng</button><button data-page="products">▣ Sản phẩm</button><button data-page="expenses">＋ Chi phí</button><button data-page="reports">▥ Báo cáo</button><button data-page="settings">⚙ Dữ liệu</button></nav><div class="drawer-note">💸 Mục tiêu: 10 tỷ rồi tính tiếp!</div></aside>
+<div class="topbar"><button id="menuBtn" class="menu-btn" aria-label="Mở menu" aria-expanded="false"><span></span><span></span><span></span></button><span class="tb-brand">🤑 Kiếm được 10 tỷ sẽ nghỉ làm</span><button id="syncStat" type="button" class="syncstat out">☁</button></div><div id="drawerBg" class="drawer-bg hidden"></div><aside id="drawer" class="drawer"><div class="drawer-head">🤑 Kiếm được 10 tỷ sẽ nghỉ làm<small>Làm hết mình, nghỉ hưu thật sớm 😎</small></div><nav class="menu"><button class="active" data-page="dashboard">▦ Tổng quan</button><button data-page="orders">▤ Đơn hàng</button><button data-page="customers">♙ Khách hàng</button><button data-page="cycle">🔄 Chu kỳ nhập</button><button data-page="products">▣ Sản phẩm</button><button data-page="expenses">＋ Chi phí</button><button data-page="reports">▥ Báo cáo</button><button data-page="settings">⚙ Dữ liệu</button></nav><div class="drawer-note">💸 Mục tiêu: 10 tỷ rồi tính tiếp!</div></aside>
 <main class="main"><header class="app-topbar"><div class="searchbox">⌕ <input id="globalSearch" placeholder="Tìm kiếm đơn hàng, khách hàng, sản phẩm..."></div><div class="profile-chip"><span class="profile-avatar">M</span><span><strong>Team nghỉ hưu sớm 😎</strong><small>Quản lý bán hàng</small></span></div></header><div class="top"><div><div class="muted" id="today"></div><h1 id="pageTitle">Tổng quan</h1></div><button id="quickAdd">＋ Tạo đơn hàng</button></div><div id="page"></div></main></div>
 <div id="modal" class="modal hidden"><div class="dialog"><div class="dialoghead"><h2 id="modalTitle"></h2><button class="secondary small" id="closeModal">✕</button></div><div id="modalBody"></div></div></div>
 <div id="toast" class="toast hidden" role="status"></div>
@@ -662,10 +665,10 @@ function totals(orders,expenses){let r=orders.reduce((s,o)=>s+revenue(o),0),c=or
 function render(){
   document.getElementById('quickAdd').classList.toggle('hidden',page!=='dashboard');
   document.getElementById('today').textContent=new Date().toLocaleDateString('vi-VN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-  document.getElementById('pageTitle').textContent=({dashboard:'Tổng quan',orders:'Đơn hàng',customers:'Khách hàng',products:'Sản phẩm',expenses:'Chi phí',reports:'Báo cáo',settings:'Dữ liệu'})[page];
+  document.getElementById('pageTitle').textContent=({dashboard:'Tổng quan',orders:'Đơn hàng',customers:'Khách hàng',cycle:'Chu kỳ nhập hàng',products:'Sản phẩm',expenses:'Chi phí',reports:'Báo cáo',settings:'Dữ liệu'})[page];
   document.querySelectorAll('.menu button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
   let el=document.getElementById('page');
-  el.innerHTML=({dashboard:dashboardPage,orders:ordersPage,customers:customersPage,products:productsPage,expenses:expensesPage,reports:reportsPage,settings:settingsPage})[page]();
+  el.innerHTML=({dashboard:dashboardPage,orders:ordersPage,customers:customersPage,cycle:cyclePage,products:productsPage,expenses:expensesPage,reports:reportsPage,settings:settingsPage})[page]();
 }
 
 function metric(label,value,note='',ico='•',tone='blue'){
@@ -732,6 +735,58 @@ function customersPage(){
   let filt=window.customerFilter||'all';
   let rows=db.customers.map(c=>{let os=db.orders.filter(o=>o.customerId===c.id),last=os.map(o=>o.date).sort().at(-1),days=last?Math.floor((Date.now()-new Date(last+'T00:00:00'))/86400000):null;return{c,os,last,days}}).filter(x=>filt==='all'||(filt==='never'&&x.days===null)||(filt!=='never'&&x.days!==null&&x.days>=Number(filt))).sort((a,b)=>(b.days??-1)-(a.days??-1));
   return `<div class="toolbar"><input id="customerSearch" style="max-width:none;flex:1;min-width:0" placeholder="🔍 Lọc theo tên, số điện thoại, khu vực..."><button onclick="openCustomer()">＋ Thêm</button></div><div class="toolbar"><button class="${filt==='all'?'':'secondary'} small" onclick="setCustomerFilter('all')">Tất cả</button><button class="${filt==='15'?'':'secondary'} small" onclick="setCustomerFilter('15')">≥ 15 ngày</button><button class="${filt==='30'?'':'secondary'} small" onclick="setCustomerFilter('30')">≥ 30 ngày</button><button class="${filt==='60'?'':'secondary'} small" onclick="setCustomerFilter('60')">≥ 60 ngày</button><button class="${filt==='never'?'':'secondary'} small" onclick="setCustomerFilter('never')">Chưa có đơn</button><span class="muted" style="font-size:12px">Hiển thị ${rows.length} khách</span></div><div id="customerRows" class="olist">${rows.map(({c,os,last,days})=>`<div class="orow" onclick="editCustomer('${c.id}')" data-search="${esc((c.name+' '+(c.phone||'')+' '+(c.area||'')+' '+(c.address||'')).toLowerCase())}"><div class="oic">👤</div><div class="omid"><div class="lname">${esc(c.name)}</div><div class="lline">📞 ${esc(c.phone||'Không có')}</div><div class="lline">🏠 ${esc([c.area,c.address].filter(Boolean).join(' · ')||'Không có')}</div><div class="lmeta">${os.length} đơn · ${money(os.reduce((s,o)=>s+revenue(o),0))} · ${days===null?'<span class="tag warn">Chưa có đơn</span>':days>=30?`<span class="tag warn">${days} ngày chưa nhập</span>`:`${days} ngày trước`}</div></div><button class="ldel" aria-label="Xóa khách hàng" onclick="event.stopPropagation();del('customers','${c.id}')">🗑</button></div>`).join('')||'<div class="empty">Không có khách hàng trong nhóm này</div>'}</div>`;
+}
+
+
+/* ===== Chu kỳ nhập hàng của khách ===== */
+function cycleInfo(c){
+  const os=db.orders.filter(o=>o.customerId===c.id&&o.date);
+  const dates=[...new Set(os.map(o=>o.date))].sort();
+  if(!dates.length)return null;
+  const D=d=>new Date(d+'T00:00:00');
+  const last=dates.at(-1);
+  const gaps=[];
+  for(let i=1;i<dates.length;i++){const g=Math.round((D(dates[i])-D(dates[i-1]))/86400000);if(g>0)gaps.push(g)}
+  const r=gaps.slice(-5).sort((a,b)=>a-b);
+  const cycle=r.length?(r.length%2?r[(r.length-1)/2]:Math.round((r[r.length/2-1]+r[r.length/2])/2)):null;
+  const since=Math.round((D(today())-D(last))/86400000);
+  const left=cycle===null?null:cycle-since;
+  const items={};
+  os.filter(o=>o.date===last).forEach(o=>o.lines.forEach(l=>{items[l.name]=(items[l.name]||0)+qtyVal(l.qty)}));
+  const next=cycle===null?null:new Date(D(last).getTime()+cycle*86400000);
+  return{c,last,cycle,since,left,items:Object.entries(items),next,count:dates.length};
+}
+function cycleStatus(x){
+  if(x.cycle===null)return'new';
+  if(x.left<0)return'late';
+  if(x.left<=3)return'soon';
+  return'ok';
+}
+function setCycleFilter(v){window.cycleFilter=v;render()}
+function cyclePage(){
+  const filt=window.cycleFilter||'need';
+  const all=db.customers.map(cycleInfo).filter(Boolean);
+  all.forEach(x=>x.st=cycleStatus(x));
+  const cnt=k=>all.filter(x=>k==='need'?(x.st==='late'||x.st==='soon'):k==='all'?true:x.st===k).length;
+  const rows=all.filter(x=>filt==='need'?(x.st==='late'||x.st==='soon'):filt==='all'?true:x.st===filt)
+    .sort((a,b)=>(a.left??9999)-(b.left??9999));
+  const fb=(k,t)=>`<button class="${filt===k?'':'secondary'} small" onclick="setCycleFilter('${k}')">${t} (${cnt(k)})</button>`;
+  const tagOf=x=>x.st==='late'?`<span class="tag bad">Trễ ${-x.left} ngày, gọi ngay</span>`
+    :x.st==='soon'?`<span class="tag warn">${x.left===0?'Hôm nay đến hạn':'Còn '+x.left+' ngày là hết'}</span>`
+    :x.st==='ok'?`<span class="tag">Còn ${x.left} ngày</span>`
+    :`<span class="tag warn">Mới 1 lần nhập</span>`;
+  const itemTxt=x=>{
+    const top=x.items.sort((a,b)=>b[1]-a[1]).slice(0,3).map(([n,q])=>`${esc(n)} ×${Number(q.toFixed(2))}`).join(', ');
+    return top+(x.items.length>3?` +${x.items.length-3} món`:'');
+  };
+  return `<div class="toolbar">${fb('need','🔔 Cần chuẩn bị')}${fb('late','Trễ hạn')}${fb('ok','Còn hàng')}${fb('new','Chưa đủ dữ liệu')}${fb('all','Tất cả')}</div>
+  <div id="cycleRows" class="olist">${rows.length?rows.map(x=>{
+    const tel=String(x.c.phone||'').replace(/[^0-9+]/g,'');
+    return `<div class="orow"><div class="oic">${x.st==='late'?'🔴':x.st==='soon'?'🟠':x.st==='ok'?'🟢':'⚪'}</div><div class="omid"><div class="lname">${esc(x.c.name)}</div>
+    <div class="lline">🛒 Lần nhập gần nhất ${dateFmt(x.last)} (${x.since} ngày trước): ${itemTxt(x)||'—'}</div>
+    <div class="lline">${x.cycle===null?'Cần thêm 1 lần nhập nữa để tính chu kỳ':`🔄 Chu kỳ ~${x.cycle} ngày · dự kiến nhập lại ${x.next.toLocaleDateString('vi-VN')}`}</div>
+    <div class="lmeta">${tagOf(x)} ${tel?`<a class="tag" href="tel:${tel}" onclick="event.stopPropagation()">📞 Gọi ${esc(x.c.phone)}</a>`:''}</div></div></div>`}).join(''):'<div class="notice">Chưa có khách nào ở nhóm này.</div>'}</div>
+  <div class="notice" style="margin-top:12px">Chu kỳ được tính từ khoảng cách giữa các ngày nhập gần nhất của từng khách (tối đa 5 lần gần nhất). Cảnh báo khi còn ≤ 3 ngày là đến hạn nhập lại. Càng nhiều đơn thì càng chính xác.</div>`;
 }
 
 function setCustomerFilter(v){window.customerFilter=v;render()}
