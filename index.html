@@ -700,7 +700,7 @@ function dashboardPage(){
   let mo=db.orders.filter(o=>o.date.startsWith(month));
   let me=db.expenses.filter(e=>e.date.startsWith(month)),mt=totals(mo,me),mb=expenseBreakdown(mo,me);
   let recent=[...db.orders].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);
-  let overdue=db.customers.map(c=>({...c,last:db.orders.filter(o=>o.customerId===c.id).map(o=>o.date).sort().at(-1)})).filter(c=>c.last&&Math.floor((Date.now()-new Date(c.last+'T00:00:00'))/86400000)>=30);
+  let overdue=db.customers.map(cycleInfo).filter(Boolean).map(x=>{x.st=cycleStatus(x);return x}).filter(x=>x.st==='late'||x.st==='soon'||(x.st==='new'&&x.since>=30)).sort((a,b)=>(a.left??9999)-(b.left??9999));
   let days=Array.from({length:7},(_,i)=>{let d=new Date();d.setDate(d.getDate()-6+i);let k=d.toLocaleDateString('sv-SE'),os=db.orders.filter(o=>o.date===k),es=db.expenses.filter(e=>e.date===k);let t=totals(os,es);return{key:k,label:k.slice(8)+'/'+k.slice(5,7),...t,totalCost:t.c+t.e}});
   const rp=[{key:'r',label:'Doanh số',color:'#3478ee',type:'bar'},{key:'totalCost',label:'Chi phí',color:'#f29b38',type:'bar'},{key:'p',label:'Lợi nhuận',color:'#18a875',type:'line'}];
   const srow=(lab,n)=>{let d=new Date();d.setDate(d.getDate()-n);let f=d.toLocaleDateString('sv-SE'),t=totals(db.orders.filter(o=>inRange(o.date,f,now)),db.expenses.filter(e=>inRange(e.date,f,now)));return `<tr><td>${lab}</td><td>${money(t.r)}</td><td class="${t.p<0?'negative':'positive'}">${money(t.p)}</td></tr>`};
@@ -711,7 +711,7 @@ function dashboardPage(){
   <details class="fold d-chart" open><summary>📊 Biểu đồ 7 ngày gần đây</summary><div class="fold-body">${analyticsChart(days,rp,true)}</div></details>
   <details class="fold d-stat" open><summary>📋 Thống kê</summary><div class="fold-body"><div class="tablewrap"><table class="stat-table"><thead><tr><th>--</th><th>Doanh thu</th><th>Lợi nhuận</th></tr></thead><tbody>${srow('Hôm nay',0)}${srow('7 ngày',6)}${srow('30 ngày',29)}</tbody></table></div></div></details>
   <details class="fold d-recent" open><summary>🧾 Đơn hàng gần đây</summary><div class="fold-body">${recent.length?`<div class="tablewrap"><table><thead><tr><th>Ngày</th><th>Khách hàng</th><th>Doanh thu</th><th>Lợi nhuận</th></tr></thead><tbody>${recent.map(o=>`<tr><td>${dateFmt(o.date)}</td><td><strong>${esc(customer(o.customerId)?.name||'Khách lẻ')}</strong></td><td>${money(revenue(o))}</td><td class="${orderProfit(o)<0?'negative':'positive'}">${money(orderProfit(o))}</td></tr>`).join('')}</tbody></table></div><button class="link-btn" onclick="page='orders';render()">Xem tất cả →</button>`:'<div class="empty">Chưa có đơn hàng. Hãy tạo đơn đầu tiên.</div>'}</div></details>
-  <details class="fold d-care" open><summary>📞 Khách hàng cần chăm sóc</summary><div class="fold-body">${overdue.length?overdue.map(c=>`<div class="customerbox"><div><strong>${esc(c.name)}</strong><div class="muted">${esc(c.area||c.address||'Chưa có địa chỉ')}</div></div><span class="tag warn">${Math.floor((Date.now()-new Date(c.last+'T00:00:00'))/86400000)} ngày</span></div>`).join(''):'<div class="empty">Chưa có khách nào quá 30 ngày chưa mua.</div>'}</div></details>
+  <details class="fold d-care" open><summary>📞 Khách chuẩn bị & đã trễ${overdue.length?` (${overdue.length})`:''}</summary><div class="fold-body">${overdue.length?overdue.slice(0,8).map(x=>{const tel=String(x.c.phone||'').replace(/[^0-9+]/g,'');const tg=x.st==='late'?`<span class="tag bad">Trễ ${-x.left} ngày</span>`:x.st==='soon'?`<span class="tag warn">${x.left===0?'Hôm nay':'Còn '+x.left+' ngày'}</span>`:`<span class="tag warn">${x.since} ngày chưa mua</span>`;return `<div class="customerbox"><div><strong>${esc(x.c.name)}</strong><div class="muted">${esc(x.c.area||x.c.address||'Chưa có địa chỉ')}</div></div><div style="display:flex;gap:6px;align-items:center">${tg}${tel?`<a class="tag" href="tel:${tel}" style="text-decoration:none">📞</a>`:''}</div></div>`}).join('')+(overdue.length>8?`<button class="secondary small" style="margin-top:8px;width:100%" onclick="goCycle()">Xem tất cả ${overdue.length} khách</button>`:`<button class="secondary small" style="margin-top:8px;width:100%" onclick="goCycle()">Xem chu kỳ nhập hàng</button>`):'<div class="empty">Chưa có khách nào sắp hết hàng hoặc trễ hạn.</div>'}</div></details>
   </div>`;
 }
 
@@ -762,6 +762,7 @@ function cycleStatus(x){
   if(x.left<=3)return'soon';
   return'ok';
 }
+function goCycle(){window.cycleFilter='need';page='cycle';render();scrollTo(0,0)}
 function setCycleFilter(v){window.cycleFilter=v;render()}
 function cyclePage(){
   const filt=window.cycleFilter||'need';
