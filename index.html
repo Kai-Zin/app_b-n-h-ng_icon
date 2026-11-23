@@ -781,11 +781,11 @@ async function drawInvoice(o){
   const wrap=(t,w)=>{const out=[];let cur='';String(t||'').split(/\s+/).forEach(wd=>{const test=cur?cur+' '+wd:wd;if(cur&&m.measureText(test).width>w){out.push(cur);cur=wd}else cur=test});if(cur)out.push(cur);return out.length?out:['']};
   const rows=o.lines.map(l=>({name:wrap(l.name,X[2]-X[1]-14),qty:qtyVal(l.qty),price:num(l.price)}));
   rows.forEach(r=>r.h=Math.max(27,r.name.length*20+8));
-  const topY=308,headH=27,surH=27,totH=27,footH=190;
-  const rowsH=rows.reduce((s,r)=>s+r.h,0),H=topY+headH+rowsH+surH+totH+footH;
-  const cv=document.createElement('canvas');cv.width=W*S;cv.height=H*S;
+  const P=28,topY=308,headH=27,surH=27,totH=27,footH=172;
+  const rowsH=rows.reduce((s,r)=>s+r.h,0),H=topY+headH+rowsH+surH+totH+footH+2*P,CW=W+2*P;
+  const cv=document.createElement('canvas');cv.width=CW*S;cv.height=H*S;
   const g=cv.getContext('2d');g.scale(S,S);g.textBaseline='middle';
-  g.fillStyle='#fff';g.fillRect(0,0,W,H);
+  g.fillStyle='#fff';g.fillRect(0,0,CW,H);g.translate(P,P);
   // Đầu trang
   g.fillStyle='#000';g.textAlign='center';
   g.font='bold 20px '+F;g.fillText(INV_CO.name,W/2,14);
@@ -803,7 +803,7 @@ async function drawInvoice(o){
   lab('Tên khách hàng:',233,c?.name);lab('Địa chỉ:',260,c?.address||c?.area);
   const qt=await invLoad(INV_QR),qc=await invLoad(INV_QRC);
   g.save();g.setTransform(1,0,0,1,0,0);
-  const qx=Math.round((W-2)*S)-490,qy=Math.round(85*S);
+  const qx=Math.round((P+W-2)*S)-490,qy=Math.round((85+P)*S);
   if(qt)g.drawImage(qt,qx,qy,490,150);
   if(qc){g.imageSmoothingEnabled=false;g.drawImage(qc,qx,qy+150,490,490)}
   g.restore();
@@ -837,8 +837,7 @@ async function drawInvoice(o){
   g.textAlign='center';g.fillStyle='#000';g.font='bold 17px '+F;
   [[211,'Người nhận hàng'],[515,'Nhân viên giao hàng'],[773,'Người bán hàng']].forEach(([x,t])=>g.fillText(t,x,y+38));
   const sg=await invLoad(INV_SIG);if(sg)g.drawImage(sg,773-100,y+84,200,69);
-  g.strokeStyle='#555';g.strokeRect(.5,.5,W-1,H-1);
-  return cv;
+    return cv;
 }
 async function invRefresh(){
   if(!invState)return;
