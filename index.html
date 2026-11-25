@@ -1046,7 +1046,7 @@ async function saveCustomer(id=null){
 
 function editCustomer(id){
   let c=customer(id);if(!c)return;
-  openModal('Chỉnh sửa khách hàng',`<div class="formgrid"><div class="field"><label>Tên khách hàng *</label><input id="cName" required value="${esc(c.name)}"></div><div class="field"><label>Số điện thoại</label><input id="cPhone" value="${esc(c.phone||'')}"></div><div class="field"><label>Khu vực / tỉnh thành</label><input id="cArea" value="${esc(c.area||'')}"></div><div class="field"><label>Địa chỉ chi tiết</label><input id="cAddress" value="${esc(c.address||'')}"></div><div class="field span2"><label>Ghi chú</label><textarea id="cNote" rows="2">${esc(c.note||'')}</textarea></div></div><div class="actions"><button class="secondary" onclick="closeModal()">Hủy</button><button onclick="saveCustomer('${id}')">Lưu thay đổi</button></div>`);
+  openModal('Chỉnh sửa khách hàng',`<div class="formgrid"><div class="field"><label>Tên khách hàng *</label><input id="cName" required value="${esc(c.name)}"></div><div class="field"><label>Số điện thoại</label><input id="cPhone" value="${esc(c.phone||'')}"></div><div class="field"><label>Khu vực / tỉnh thành</label><input id="cArea" value="${esc(c.area||'')}"></div><div class="field"><label>Địa chỉ chi tiết</label><input id="cAddress" value="${esc(c.address||'')}"></div><div class="field span2"><label>Ghi chú</label><textarea id="cNote" rows="2">${esc(c.note||'')}</textarea></div></div><div class="actions"><button class="secondary" onclick="showCustPrices('${id}')">💲 Bảng giá</button><button class="secondary" onclick="closeModal()">Hủy</button><button onclick="saveCustomer('${id}')">Lưu thay đổi</button></div>`);
 }
 
 // 2. SẢN PHẨM
@@ -1387,7 +1387,7 @@ async function saveOrder(){
     id:newId('DH'),
     date:G('oDate').value||today(),
     customerId:G('oCustomer').value,
-    lines:lines.map(l=>({...l,qty:qtyVal(l.qty)})),
+    lines:lines.map(({manual,cpApplied,cpDate,...l})=>({...l,qty:qtyVal(l.qty)})),
     surcharge:num(G('oSur').value),
     shipFee:num(G('oShip').value),
     extraCost:num(G('oShip').value),
@@ -1470,7 +1470,39 @@ function openOrder(){
 }
 
 function closeOrderPage(ask){if(ask&&orderLines.length&&!confirm('Bỏ đơn đang tạo?'))return;G('orderPage').classList.add('hidden');G('orderPage').innerHTML='';document.body.style.overflow=''}
-function ocShow(){let c=customer(G('oCustomer').value);G('ocPhone').textContent=c?.phone||'Không có';G('ocAddr').textContent=[c?.area,c?.address].filter(Boolean).join(' · ')||'Không có'}
+/* ===== Giá riêng theo khách: nhớ giá lần mua gần nhất của từng khách cho từng sản phẩm ===== */
+function lineKey(l){return l.productId?('p:'+l.productId):('n:'+String(l.name||'').trim().toLowerCase())}
+function custPriceMap(cid){
+  const m={};if(!cid)return m;
+  db.orders.filter(o=>o.customerId===cid&&o.date).sort((a,b)=>a.date.localeCompare(b.date)||(a._u||0)-(b._u||0))
+    .forEach(o=>o.lines.forEach(l=>{if(l.name&&num(l.price)>0)m[lineKey(l)]={price:num(l.price),date:o.date,name:l.name,productId:l.productId}}));
+  return m;
+}
+function applyCustPrices(){
+  const m=custPriceMap(G('oCustomer')?G('oCustomer').value:'');
+  orderLines.forEach(l=>{
+    if(l.manual)return;
+    const e=m[lineKey(l)],p=product(l.productId);
+    if(e){l.price=e.price;l.cpApplied=true;l.cpDate=e.date}
+    else if(l.cpApplied){if(p)l.price=num(p.price);l.cpApplied=false;delete l.cpDate}
+  });
+}
+function olHint(l){
+  if(!l.cpApplied||l.manual)return '';
+  const p=product(l.productId),list=p?num(p.price):0;
+  return `💲 Giá riêng của khách (lần mua ${dateFmt(l.cpDate)})${list&&list!==num(l.price)?' · giá chung '+money(list):''}`;
+}
+function showCustPrices(id){
+  const c=customer(id);if(!c)return;
+  const rows=Object.values(custPriceMap(id)).sort((a,b)=>b.date.localeCompare(a.date)).map(e=>{
+    const p=e.productId?product(e.productId):db.products.find(x=>x.name.trim().toLowerCase()===String(e.name).trim().toLowerCase());
+    const list=p?num(p.price):0,d=list?Math.round((e.price-list)/list*1000)/10:null;
+    const sub=d===null?'Sản phẩm ngoài danh sách':d===0?'Bằng giá chung':`${d>0?'+':''}${d}% so với giá chung ${money(list)}`;
+    return `<div style="display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #e8ecf5"><div><strong>${esc(e.name)}</strong><div class="muted" style="font-size:12px">Mua gần nhất ${dateFmt(e.date)}</div></div><div style="text-align:right"><strong>${money(e.price)}</strong><div style="font-size:12px"><span class="${d===null||d===0?'muted':d<0?'negative':'positive'}" style="margin-left:0">${sub}</span></div></div></div>`;
+  }).join('');
+  openModal('Bảng giá: '+esc(c.name),`<div>${rows||'<div class="notice">Khách này chưa có đơn nào để nhớ giá.</div>'}</div><div class="muted" style="font-size:12px;margin-top:8px">Đây là giá của lần mua gần nhất. Khi tạo đơn mới cho khách này, app tự điền các giá này (bạn vẫn sửa được).</div><div class="actions"><button class="secondary" onclick="editCustomer('${esc(id)}')">‹ Quay lại</button><button onclick="closeModal()">Đóng</button></div>`);
+}
+function ocShow(){let c=customer(G('oCustomer').value);G('ocPhone').textContent=c?.phone||'Không có';G('ocAddr').textContent=[c?.area,c?.address].filter(Boolean).join(' · ')||'Không có';applyCustPrices();renderOrderLines()}
 function ocToggleNew(){G('ocNew').classList.toggle('hidden')}
 
 async function ocSaveNew(){
@@ -1495,7 +1527,7 @@ const lineTotal=l=>money(num(l.price)*qtyVal(l.qty));
 function olHtml(l,i){let p=product(l.productId),img=p&&p.image?`<img src="${p.image}" alt="">`:'<div class="ph">📦</div>';
   return `<div class="ol"><div>${img}</div><div><div class="ol-name">${i+1}. ${l.productId?esc(l.name):`<input class="ol-nm" placeholder="Tên sản phẩm ngoài..." value="${esc(l.name)}" oninput="orderLines[${i}].name=this.value">`}</div>
 <div class="stepper"><button type="button" onclick="olQty(${i},-1)">−</button><input inputmode="decimal" value="${l.qty}" oninput="olSet(${i},this.value)" onchange="olFix(${i},this)"><button type="button" onclick="olQty(${i},1)">+</button></div> <span class="muted">kg</span>
-${l.productId?'':`<input class="ol-cost" inputmode="numeric" placeholder="Giá vốn / 1kg" value="${fmtMoneyInput(l.cost)}" oninput="orderLines[${i}].cost=num(this.value);updateOrderSummary()">`}</div>
+${l.productId?'':`<input class="ol-cost" inputmode="numeric" placeholder="Giá vốn / 1kg" value="${fmtMoneyInput(l.cost)}" oninput="orderLines[${i}].cost=num(this.value);updateOrderSummary()">`}<div class="muted" id="olh${i}" style="font-size:12px">${olHint(l)}</div></div>
 <div class="ol-price"><button type="button" class="small danger" onclick="olDel(${i})">×</button><div class="ol-total" id="olt${i}">${lineTotal(l)}</div><input class="ol-unit" inputmode="numeric" placeholder="đ / 1kg" value="${fmtMoneyInput(l.price)}" oninput="olPrice(${i},this.value)"></div></div>`}
 
 function renderOrderLines(){let b=G('orderLines');if(!b)return;b.innerHTML=orderLines.map(olHtml).join('')||'<div class="empty">Chưa có hàng hóa. Bấm “＋ Thêm” để chọn.</div>';updateOrderSummary()}
@@ -1503,7 +1535,7 @@ function olRefresh(i){let t=G('olt'+i);if(t)t.textContent=lineTotal(orderLines[i
 function olSet(i,v){orderLines[i].qty=Math.max(0,qtyVal(v));olRefresh(i)}
 function olFix(i,el){let q=qtyVal(orderLines[i].qty);if(!(q>0))q=1;orderLines[i].qty=q;el.value=q;olRefresh(i)}
 function olQty(i,d){let n=Math.round((qtyVal(orderLines[i].qty)+d)*100)/100;if(n<=0)n=0.5;orderLines[i].qty=n;renderOrderLines()}
-function olPrice(i,v){orderLines[i].price=num(v);olRefresh(i)}
+function olPrice(i,v){orderLines[i].price=num(v);orderLines[i].manual=true;const h=G('olh'+i);if(h)h.textContent='';olRefresh(i)}
 function olDel(i){orderLines.splice(i,1);renderOrderLines()}
 
 function updateOrderSummary(){
@@ -1519,7 +1551,7 @@ function renderPick(){let q=G('pickQ').value.trim().toLowerCase(),ps=db.products
   G('pickCount').textContent=pickSel.size}
 function pickToggle(id){pickSel.has(id)?pickSel.delete(id):pickSel.add(id);renderPick()}
 function pickApply(){orderLines=orderLines.filter(l=>!l.productId||pickSel.has(l.productId));pickSel.forEach(id=>{if(!orderLines.some(l=>l.productId===id)){let p=product(id);if(p)orderLines.push({productId:id,name:p.name,qty:1,price:num(p.price),cost:num(p.cost)})}})}
-function pickDone(){pickApply();closePicker();renderOrderLines()}
+function pickDone(){pickApply();applyCustPrices();closePicker();renderOrderLines()}
 function pickCustom(){pickApply();orderLines.push({productId:'',name:'',qty:1,price:0,cost:0});closePicker();renderOrderLines()}
 
 function zoomPanel(){let z=Number(localStorage.getItem('mysales_zoom'))||1;return `<section class="panel" style="margin-bottom:15px"><h2>Cỡ hiển thị trên máy này</h2><div class="toolbar">${[0.8,0.85,0.9,1].map(v=>`<button class="${Math.abs(z-v)<.01?'':'secondary'}" onclick="setZoom(${v})">${Math.round(v*100)}%</button>`).join('')}</div></section>`}
