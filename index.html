@@ -149,7 +149,7 @@
 }
 .oprofit{font-size:12px;margin-top:1px;white-space:nowrap;margin-left:0!important}
 .tag.bad{background:#fdecec;color:#d93636}
-#cycleRows .lline,#bonusRows .lline{white-space:normal}
+#cycleRows .lline,#bonusRows .lline,#busRows .lline{white-space:normal}
 #cycleRows a.tag{text-decoration:none;margin-left:4px}
 
 /* Khóa zoom bằng tay cho giống app. Cỡ hiển thị trong mục Dữ liệu dùng CSS zoom riêng nên không bị ảnh hưởng. */
@@ -611,7 +611,7 @@ html body .syncstat{margin-left:auto;background:transparent!important;box-shadow
 </style>
 </head>
 <body><div class="app">
-<div class="topbar"><button id="menuBtn" class="menu-btn" aria-label="Mở menu" aria-expanded="false"><span></span><span></span><span></span></button><span class="tb-brand">🤑 Kiếm được 10 tỷ sẽ nghỉ làm</span><button id="syncStat" type="button" class="syncstat out">☁</button></div><div id="drawerBg" class="drawer-bg hidden"></div><aside id="drawer" class="drawer"><div class="drawer-head">🤑 Kiếm được 10 tỷ sẽ nghỉ làm<small>Làm hết mình, nghỉ hưu thật sớm 😎</small></div><nav class="menu"><button class="active" data-page="dashboard">▦ Tổng quan</button><button data-page="orders">▤ Đơn hàng</button><button data-page="customers">♙ Khách hàng</button><button data-page="cycle">🔄 Chu kỳ nhập</button><button data-page="bonus">💖 Các khách YÊU bonus</button><button data-page="products">▣ Sản phẩm</button><button data-page="expenses">＋ Chi phí</button><button data-page="reports">▥ Báo cáo</button><button data-page="settings">⚙ Dữ liệu</button></nav><div class="drawer-note">💸 Mục tiêu: 10 tỷ rồi tính tiếp!</div></aside>
+<div class="topbar"><button id="menuBtn" class="menu-btn" aria-label="Mở menu" aria-expanded="false"><span></span><span></span><span></span></button><span class="tb-brand">🤑 Kiếm được 10 tỷ sẽ nghỉ làm</span><button id="syncStat" type="button" class="syncstat out">☁</button></div><div id="drawerBg" class="drawer-bg hidden"></div><aside id="drawer" class="drawer"><div class="drawer-head">🤑 Kiếm được 10 tỷ sẽ nghỉ làm<small>Làm hết mình, nghỉ hưu thật sớm 😎</small></div><nav class="menu"><button class="active" data-page="dashboard">▦ Tổng quan</button><button data-page="orders">▤ Đơn hàng</button><button data-page="customers">♙ Khách hàng</button><button data-page="cycle">🔄 Chu kỳ nhập</button><button data-page="bonus">💖 Các khách YÊU bonus</button><button data-page="buses">🚚 Xe gửi tỉnh</button><button data-page="products">▣ Sản phẩm</button><button data-page="expenses">＋ Chi phí</button><button data-page="reports">▥ Báo cáo</button><button data-page="settings">⚙ Dữ liệu</button></nav><div class="drawer-note">💸 Mục tiêu: 10 tỷ rồi tính tiếp!</div></aside>
 <main class="main"><header class="app-topbar"><div class="searchbox">⌕ <input id="globalSearch" placeholder="Tìm kiếm đơn hàng, khách hàng, sản phẩm..."></div><div class="profile-chip"><span class="profile-avatar">M</span><span><strong>Team nghỉ hưu sớm 😎</strong><small>Quản lý bán hàng</small></span></div></header><div class="top"><div><div class="muted" id="today"></div><h1 id="pageTitle">Tổng quan</h1></div><button id="quickAdd">＋ Tạo đơn hàng</button></div><div id="page"></div></main></div>
 <div id="modal" class="modal hidden"><div class="dialog"><div class="dialoghead"><h2 id="modalTitle"></h2><button class="secondary small" id="closeModal">✕</button></div><div id="modalBody"></div></div></div>
 <div id="toast" class="toast hidden" role="status"></div>
@@ -633,10 +633,10 @@ function load(){
   try{
     raw=localStorage.getItem(KEY);
     let d=JSON.parse(raw)||{};
-    for(const k of ['orders','customers','products','expenses'])if(!Array.isArray(d[k]))d[k]=[];
+    for(const k of ['orders','customers','products','expenses','buses'])if(!Array.isArray(d[k]))d[k]=[];
     return d;
   }catch{
-    return{orders:[],customers:[],products:[],expenses:[]};
+    return{orders:[],customers:[],products:[],expenses:[],buses:[]};
   }
 }
 
@@ -669,10 +669,10 @@ function totals(orders,expenses){let r=orders.reduce((s,o)=>s+revenue(o),0),c=or
 function render(){
   document.getElementById('quickAdd').classList.toggle('hidden',page!=='dashboard');
   document.getElementById('today').textContent=new Date().toLocaleDateString('vi-VN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-  document.getElementById('pageTitle').textContent=({dashboard:'Tổng quan',orders:'Đơn hàng',customers:'Khách hàng',cycle:'Chu kỳ nhập hàng',bonus:'Các khách YÊU bonus',products:'Sản phẩm',expenses:'Chi phí',reports:'Báo cáo',settings:'Dữ liệu'})[page];
+  document.getElementById('pageTitle').textContent=({dashboard:'Tổng quan',orders:'Đơn hàng',customers:'Khách hàng',cycle:'Chu kỳ nhập hàng',bonus:'Các khách YÊU bonus',buses:'Xe gửi tỉnh',products:'Sản phẩm',expenses:'Chi phí',reports:'Báo cáo',settings:'Dữ liệu'})[page];
   document.querySelectorAll('.menu button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
   let el=document.getElementById('page');
-  el.innerHTML=({dashboard:dashboardPage,orders:ordersPage,customers:customersPage,cycle:cyclePage,bonus:bonusPage,products:productsPage,expenses:expensesPage,reports:reportsPage,settings:settingsPage})[page]();
+  el.innerHTML=({dashboard:dashboardPage,orders:ordersPage,customers:customersPage,cycle:cyclePage,bonus:bonusPage,buses:busesPage,products:productsPage,expenses:expensesPage,reports:reportsPage,settings:settingsPage})[page]();
 }
 
 function metric(label,value,note='',ico='•',tone='blue'){
@@ -929,6 +929,99 @@ function cyclePage(){
     ${hide?`<button class="secondary small" onclick="cycShow('${esc(x.c.id)}')">↩ Theo dõi lại</button>`:`<button class="secondary small" onclick="cycHide('${esc(x.c.id)}')">🚫 Bỏ theo dõi</button>`}</div></div></div>`}).join(''):'<div class="notice">Chưa có khách nào ở nhóm này.</div>'}</div>
   <div class="notice" style="margin-top:12px">Dự báo theo từng sản phẩm: lượng khách đã lấy chia cho số ngày đến lần lấy kế tiếp ra mức dùng mỗi ngày (lấy tối đa 5 lần gần nhất). Lượng của lần nhập gần nhất chia mức dùng ra số ngày hàng đủ dùng. Khách lấy nhiều hơn thường lệ sẽ được báo hết muộn hơn, lấy ít hơn thì báo sớm hơn. Món khách đã lâu không lấy (trễ quá gấp đôi số ngày đủ dùng, tối thiểu 7 ngày) được bỏ qua để không báo oan khi khách vẫn đặt các món khác. Sản phẩm mới mua 1 lần chưa dự báo được, khi đó app tính tạm theo chu kỳ ngày. Khách bạn bấm "Bỏ theo dõi" sẽ biến mất khỏi danh sách và trang chủ (chỉ trên máy này), và tự quay lại nếu khách có đơn mới.</div>`;
 }
+/* ===== Xe gửi tỉnh: lưu trên máy + đồng bộ bảng buses trên Supabase (tách riêng như các bảng khác) ===== */
+function busList(){return db.buses||(db.buses=[])}
+function busById(id){return busList().find(b=>b.id===id)}
+let busForm=null;
+function busesPage(){
+  const list=[...busList()].sort((a,b)=>a.name.localeCompare(b.name,'vi'));
+  const names=b=>(b.customerIds||[]).map(id=>customer(id)?.name).filter(Boolean);
+  return `<div class="toolbar"><input id="busSearch" style="max-width:none;flex:1;min-width:0" placeholder="🔍 Tìm nhà xe, nơi gửi, khách..." oninput="busFilter(this.value)"><button onclick="openBus()">＋ Thêm nhà xe</button></div>
+  <div id="busRows" class="olist">${list.length?list.map(b=>{const cn=names(b);return `<div class="orow" onclick="showBus('${esc(b.id)}')" data-search="${esc([b.name,b.phone,b.pickup,b.dest,b.note,cn.join(' ')].join(' ').toLowerCase())}"><div class="oic">🚚</div><div class="omid"><div class="lname">${esc(b.name)}</div>
+    ${b.pickup?`<div class="lline">📍 ${esc(b.pickup)}</div>`:''}
+    ${b.dest?`<div class="lline">🎯 Gửi về: ${esc(b.dest)}</div>`:''}
+    ${(b.times||[]).length?`<div class="lline">⏰ ${b.times.map(esc).join(' · ')}</div>`:''}
+    ${cn.length?`<div class="lline">👥 ${cn.slice(0,3).map(esc).join(', ')}${cn.length>3?` +${cn.length-3} khách`:''}</div>`:''}</div></div>`}).join(''):'<div class="notice">Chưa có nhà xe nào. Bấm “＋ Thêm nhà xe” để lưu.</div>'}</div>`;
+}
+function busFilter(q){q=q.trim().toLowerCase();document.querySelectorAll('#busRows .orow').forEach(r=>r.classList.toggle('hidden',!!q&&!r.dataset.search.includes(q)))}
+function openBus(id){
+  const b=id?busById(id):null;
+  busForm={times:[...(b?.times||[])],cids:new Set(b?.customerIds||[])};
+  if(!busForm.times.length)busForm.times=[''];
+  openModal(b?'Sửa nhà xe':'Thêm nhà xe',`<div class="formgrid">
+   <div class="field"><label>Tên nhà xe *</label><input id="bName" value="${esc(b?.name||'')}"></div>
+   <div class="field"><label>Số điện thoại</label><input id="bPhone" type="tel" inputmode="tel" value="${esc(b?.phone||'')}"></div>
+   <div class="field span2"><label>Địa điểm gửi hàng</label><input id="bPickup" placeholder="VD: Bến xe Mỹ Đình, cổng số 3" value="${esc(b?.pickup||'')}"></div>
+   <div class="field span2"><label>Gửi về đâu</label><input id="bDest" placeholder="VD: Thái Nguyên, Bắc Kạn" value="${esc(b?.dest||'')}"></div>
+   <div class="field span2"><label>Giờ xe chạy (thêm nhiều chuyến tùy ý)</label><div id="bTimes"></div><button type="button" class="secondary small" onclick="busAddTime()">＋ Thêm giờ</button></div>
+   <div class="field span2"><label>Gửi cho khách nào <span id="bCustCount" class="muted"></span></label><input id="bCustQ" placeholder="🔍 Tìm khách..." oninput="busCustFilter()"><div id="bCustList" style="max-height:210px;overflow:auto;border:1px solid #dfe3ec;border-radius:10px;padding:2px 10px;margin-top:6px"></div></div>
+   <div class="field span2"><label>Ghi chú</label><textarea id="bNote" rows="2" placeholder="VD: cước, tên lơ xe...">${esc(b?.note||'')}</textarea></div></div>
+   <div class="actions"><button class="secondary" onclick="closeModal()">Hủy</button><button onclick="saveBus('${b?esc(b.id):''}')">Lưu nhà xe</button></div>`);
+  busRenderTimes();busCustFilter();
+}
+function busRenderTimes(){
+  const el=G('bTimes');if(!el)return;
+  el.innerHTML=busForm.times.map((t,i)=>`<div style="display:flex;gap:8px;align-items:center;margin-bottom:6px"><input type="time" value="${esc(t)}" oninput="busForm.times[${i}]=this.value" onchange="busForm.times[${i}]=this.value" style="flex:1"><button type="button" class="small danger" onclick="busDelTime(${i})">×</button></div>`).join('');
+}
+function busAddTime(){busForm.times.push('');busRenderTimes()}
+function busDelTime(i){busForm.times.splice(i,1);busRenderTimes()}
+function busCountTxt(){const n=G('bCustCount');if(n)n.textContent=busForm.cids.size?`(đã chọn ${busForm.cids.size})`:''}
+function busCustFilter(){
+  const q=(G('bCustQ')?.value||'').trim().toLowerCase();
+  const list=[...db.customers].sort((a,b)=>a.name.localeCompare(b.name,'vi')).filter(c=>!q||(c.name+' '+(c.area||'')).toLowerCase().includes(q));
+  G('bCustList').innerHTML=list.map(c=>`<label style="display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #eef0f6;margin:0"><input type="checkbox" ${busForm.cids.has(c.id)?'checked':''} onchange="busToggleCust('${esc(c.id)}',this.checked)" style="width:20px;height:20px;min-width:20px;padding:0;flex:none"><span style="flex:1">${esc(c.name)}${c.area?` <span class="muted">· ${esc(c.area)}</span>`:''}</span></label>`).join('')||'<div class="muted" style="padding:10px 0">Không có khách phù hợp</div>';
+  busCountTxt();
+}
+function busToggleCust(id,on){on?busForm.cids.add(id):busForm.cids.delete(id);busCountTxt()}
+async function saveBus(id){
+  const name=G('bName').value.trim();if(!name)return alert('Vui lòng nhập tên nhà xe');
+  const data={name,phone:G('bPhone').value.trim(),pickup:G('bPickup').value.trim(),dest:G('bDest').value.trim(),times:[...new Set(busForm.times.filter(Boolean))].sort(),customerIds:[...busForm.cids],note:G('bNote').value.trim(),_u:Date.now()};
+  let item;
+  if(id){item=busById(id);if(!item)return;Object.assign(item,data)}else{item={id:uid('XE'),...data};busList().push(item)}
+  if(!persist())return;
+  showLoading('Đang lưu nhà xe...');
+  let msg='✅ Đã lưu nhà xe',ms=3500;
+  try{
+    if(ensureCloud()){
+      if(navigator.onLine&&await restoreSession()){
+        if(!(await pushSingleItem('buses',item))){msg='⚠️ Đã lưu trên máy nhưng chưa đồng bộ được. Kiểm tra đã tạo bảng buses trên Supabase chưa.';ms=7000}
+      }else{msg='⚠️ Đã lưu trên máy, chưa đồng bộ vì đang offline hoặc chưa đăng nhập.';ms=6000}
+    }
+  }finally{hideLoading()}
+  closeModal();render();toast(msg,ms);
+}
+function applyCloudBuses(res){
+  // Chưa tạo bảng buses hoặc lỗi mạng: giữ nguyên dữ liệu đang có trên máy, không báo lỗi
+  if(!res||res.error||!Array.isArray(res.data))return;
+  const cloudBuses=res.data.map(r=>({id:r.id,name:r.name||'',phone:r.phone||'',pickup:r.pickup||'',dest:r.dest||'',times:Array.isArray(r.times)?r.times:[],customerIds:Array.isArray(r.customer_ids)?r.customer_ids:[],note:r.note||'',_u:r._u}));
+  const MIG='mysales_buses_migrated';
+  if(localStorage.getItem(MIG)==='1'){db.buses=cloudBuses;return}
+  // Lần đầu có bảng: giữ cả xe đã lưu trên máy và đẩy lên đám mây
+  const ids=new Set(cloudBuses.map(b=>b.id)),extra=busList().filter(b=>!ids.has(b.id));
+  db.buses=[...cloudBuses,...extra];
+  (async()=>{let ok=true;for(const b of extra){if(!(await pushSingleItem('buses',b)))ok=false}if(ok)try{localStorage.setItem(MIG,'1')}catch(e){}})();
+}
+function showBus(id){
+  const b=busById(id);if(!b)return;
+  const tel=String(b.phone||'').replace(/[^0-9+]/g,'');
+  const cn=(b.customerIds||[]).map(i=>customer(i)).filter(Boolean);
+  const row=(k,v)=>v?`<div style="padding:8px 0;border-bottom:1px solid #e8ecf5"><div class="muted" style="font-size:12px">${k}</div><div>${v}</div></div>`:'';
+  openModal(b.name,`<div>
+   ${tel?`<a href="tel:${tel}" style="display:block;text-align:center;padding:14px;margin-bottom:10px;border-radius:12px;background:#16a34a;color:#fff;font-size:18px;font-weight:700;text-decoration:none">📞 Gọi ${esc(b.phone)}</a>`:'<div class="notice" style="margin-bottom:10px">Chưa có số điện thoại nhà xe.</div>'}
+   ${row('📍 Địa điểm gửi hàng',esc(b.pickup||''))}${row('🎯 Gửi về',esc(b.dest||''))}
+   ${row('⏰ Giờ xe chạy',(b.times||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join(' '))}
+   ${row('👥 Gửi cho khách',cn.map(c=>esc(c.name)).join(', '))}${row('📝 Ghi chú',esc(b.note||''))}
+  </div><div class="actions"><button class="danger" onclick="delBus('${esc(b.id)}')">Xóa</button><button class="secondary" onclick="openBus('${esc(b.id)}')">Sửa</button><button onclick="closeModal()">Đóng</button></div>`);
+}
+function delBus(id){
+  const b=busById(id);if(!b||!confirm('Xóa nhà xe '+b.name+'?'))return;
+  db.buses=busList().filter(x=>x.id!==id);persist();deleteRemoteItem('buses',id);closeModal();render();toast('🗑 Đã xóa nhà xe');
+}
+function busNote(cid){
+  const bs=busList().filter(b=>(b.customerIds||[]).includes(cid));
+  if(!bs.length)return '';
+  return `<div class="notice" style="margin-top:10px">🚚 Gửi tỉnh qua: ${bs.map(b=>{const t=String(b.phone||'').replace(/[^0-9+]/g,'');return t?`<a href="tel:${t}">${esc(b.name)}</a>`:esc(b.name)}).join(', ')}</div>`;
+}
 function bonusMonths(){
   const set=new Set(db.orders.filter(o=>o.date).map(o=>o.date.slice(0,7)));set.add(today().slice(0,7));
   return [...set].sort().reverse();
@@ -1046,7 +1139,7 @@ async function saveCustomer(id=null){
 
 function editCustomer(id){
   let c=customer(id);if(!c)return;
-  openModal('Chỉnh sửa khách hàng',`<div class="formgrid"><div class="field"><label>Tên khách hàng *</label><input id="cName" required value="${esc(c.name)}"></div><div class="field"><label>Số điện thoại</label><input id="cPhone" value="${esc(c.phone||'')}"></div><div class="field"><label>Khu vực / tỉnh thành</label><input id="cArea" value="${esc(c.area||'')}"></div><div class="field"><label>Địa chỉ chi tiết</label><input id="cAddress" value="${esc(c.address||'')}"></div><div class="field span2"><label>Ghi chú</label><textarea id="cNote" rows="2">${esc(c.note||'')}</textarea></div></div><div class="actions"><button class="secondary" onclick="showCustPrices('${id}')">💲 Bảng giá</button><button class="secondary" onclick="closeModal()">Hủy</button><button onclick="saveCustomer('${id}')">Lưu thay đổi</button></div>`);
+  openModal('Chỉnh sửa khách hàng',`<div class="formgrid"><div class="field"><label>Tên khách hàng *</label><input id="cName" required value="${esc(c.name)}"></div><div class="field"><label>Số điện thoại</label><input id="cPhone" value="${esc(c.phone||'')}"></div><div class="field"><label>Khu vực / tỉnh thành</label><input id="cArea" value="${esc(c.area||'')}"></div><div class="field"><label>Địa chỉ chi tiết</label><input id="cAddress" value="${esc(c.address||'')}"></div><div class="field span2"><label>Ghi chú</label><textarea id="cNote" rows="2">${esc(c.note||'')}</textarea></div></div>${busNote(id)}<div class="actions"><button class="secondary" onclick="showCustPrices('${id}')">💲 Bảng giá</button><button class="secondary" onclick="closeModal()">Hủy</button><button onclick="saveCustomer('${id}')">Lưu thay đổi</button></div>`);
 }
 
 // 2. SẢN PHẨM
@@ -1288,6 +1381,10 @@ async function pushSingleItem(table, item) {
       payload.order_id = item.orderId || '';
       delete payload.orderId;
     }
+    if(table === 'buses') {
+      payload.customer_ids = item.customerIds || [];
+      delete payload.customerIds;
+    }
     let { error } = await cloud.from(table).upsert(payload);
     if(error) throw error;
     markOk();
@@ -1312,10 +1409,11 @@ async function pullLightweightStartup() {
   setSync('busy');
   try {
     // 1. Tải song song Orders, Customers, Expenses (toàn bộ là text nên cực nhẹ, chỉ vài KB)
-    const [resO, resC, resE] = await Promise.all([
+    const [resO, resC, resE, resB] = await Promise.all([
       cloud.from('orders').select('*').eq('user_id', cloudUser.id),
       cloud.from('customers').select('*').eq('user_id', cloudUser.id),
-      cloud.from('expenses').select('*').eq('user_id', cloudUser.id)
+      cloud.from('expenses').select('*').eq('user_id', cloudUser.id),
+      cloud.from('buses').select('*').eq('user_id', cloudUser.id)
     ]);
 
     if(resO.data) {
@@ -1325,6 +1423,7 @@ async function pullLightweightStartup() {
       }));
     }
     if(resC.data) db.customers = resC.data;
+    applyCloudBuses(resB);
     if(resE.data) {
       db.expenses = resE.data.map(r => ({
         id: r.id, date: r.date, name: r.name, category: r.category, type: r.type,
@@ -1375,6 +1474,7 @@ async function pushAllFromBackup() {
   for(let p of db.products) await pushSingleItem('products', p);
   for(let o of db.orders) await pushSingleItem('orders', o);
   for(let e of db.expenses) await pushSingleItem('expenses', e);
+  for(let b of busList()) await pushSingleItem('buses', b);
 }
 
 /* --- LƯU ĐƠN HÀNG MỚI (CÓ MỜ QUAY VÒNG & ĐỒNG BỘ RIÊNG BẢNG ORDERS) --- */
